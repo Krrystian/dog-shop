@@ -1,4 +1,5 @@
-import Modal from "./components/Modal";
+import ClientOnly from "./components/ClientOnly";
+import RegisterModal from "./components/modals/RegisterModal";
 import "./globals.css";
 import { Poppins } from "next/font/google";
 
@@ -16,8 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <ClientOnly>
+        <RegisterModal />
+      </ClientOnly>
+
       <body className={`${poppins.className} bg-black`}>{children}</body>
-      <Modal isOpen />
     </html>
   );
 }

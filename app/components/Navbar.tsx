@@ -1,16 +1,15 @@
 "use client";
 import React, { useState } from "react";
-import { Hamburger } from "./Hamburger";
+import { Hamburger } from "./navbar/Hamburger";
 import { motion } from "framer-motion";
 import { FiShoppingCart } from "react-icons/fi";
-import { MdAccountCircle } from "react-icons/md";
+import UserMenu from "./navbar/UserMenu";
+import useNavbar from "../hooks/useNavbar";
 const Navbar = () => {
-  const [onHover, setOnHover] = useState<boolean>(false);
-  const [onClick, setOnClick] = useState<boolean>(false);
-
+  const navbarStore = useNavbar();
   return (
     <>
-      {onClick ? (
+      {navbarStore.onClick && (
         <motion.aside
           className="h-screen w-screen absolute flex justify-center bg-[rgba(73,128,128,0.9)] z-10"
           initial={{ width: 0 }}
@@ -21,9 +20,8 @@ const Navbar = () => {
             <a className="hover:opacity-75" href="">
               Products
             </a>
-            <a className="hover:opacity-75" href="">
-              Account
-            </a>
+
+            <UserMenu />
             <a className="hover:opacity-75 truncate" href="">
               Shopping List
             </a>
@@ -35,7 +33,7 @@ const Navbar = () => {
             </a>
           </div>
         </motion.aside>
-      ) : undefined}
+      )}
       <div className="w-screen h-[40px] fixed bg-[rgb(73,128,128)] px-6 text-lg text-white z-10">
         <nav className="flex justify-between pt-[6px]">
           <div className="text-xl cursor-default">
@@ -53,20 +51,13 @@ const Navbar = () => {
             </a>
           </div>
           <div className="hidden md:flex gap-3">
-            <a className="hover:opacity-75" href="">
-              <MdAccountCircle size={25} />
-            </a>
+            <UserMenu />
             <a className="hover:opacity-75" href="">
               <FiShoppingCart size={25} />
             </a>
           </div>
           <div className="md:hidden pt-[4px]">
-            <Hamburger
-              onClick={onClick}
-              setOnClick={setOnClick}
-              onHover={onHover}
-              setOnHover={setOnHover}
-            />
+            <Hamburger />
           </div>
         </nav>
       </div>
