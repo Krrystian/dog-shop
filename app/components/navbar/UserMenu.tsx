@@ -1,17 +1,36 @@
 "use client";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
+import useAccountModal from "@/app/hooks/useAccountModal";
+import useLoginModal from "@/app/hooks/useLoginModal";
+import { SafeUser } from "@/app/types";
 import { MdAccountCircle } from "react-icons/md";
 
-const UserMenu = () => {
-  const registerModal = useRegisterModal();
+interface UserMenuProps {
+  currentUser: SafeUser | null;
+}
+const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
+  const accountModal = useAccountModal();
+  const loginModal = useLoginModal();
   return (
     <>
-      <button className="hover:opacity-75" onClick={registerModal.onOpen}>
-        <div className="hidden md:block">
-          <MdAccountCircle size={25} />
-        </div>
-        <div className="md:hidden flex">Account</div>
-      </button>
+      {currentUser ? (
+        <button className="hover:opacity-75">
+          <div className="hidden md:block" onClick={accountModal.onOpen}>
+            <MdAccountCircle size={25} color="#F4C430" />
+          </div>
+          <div className="md:hidden flex" onClick={accountModal.onOpen}>
+            Your Account
+          </div>
+        </button>
+      ) : (
+        <button className="hover:opacity-75" onClick={loginModal.onOpen}>
+          <div className="hidden md:block">
+            <MdAccountCircle size={25} />
+          </div>
+          <div className="md:hidden flex" onClick={loginModal.onOpen}>
+            Account
+          </div>
+        </button>
+      )}
     </>
   );
 };

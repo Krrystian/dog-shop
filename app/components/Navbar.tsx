@@ -1,14 +1,20 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Hamburger } from "./navbar/Hamburger";
 import { motion } from "framer-motion";
 import { FiShoppingCart } from "react-icons/fi";
 import UserMenu from "./navbar/UserMenu";
 import useNavbar from "../hooks/useNavbar";
-const Navbar = () => {
+import { SafeUser } from "../types";
+
+interface NavbarProps {
+  currentUser: SafeUser | null;
+}
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const navbarStore = useNavbar();
+
   return (
-    <>
+    <main>
       {navbarStore.onClick && (
         <motion.aside
           className="h-screen w-screen absolute flex justify-center bg-[rgba(73,128,128,0.9)] z-10"
@@ -21,7 +27,7 @@ const Navbar = () => {
               Products
             </a>
 
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
             <a className="hover:opacity-75 truncate" href="">
               Shopping List
             </a>
@@ -51,7 +57,7 @@ const Navbar = () => {
             </a>
           </div>
           <div className="hidden md:flex gap-3">
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
             <a className="hover:opacity-75" href="">
               <FiShoppingCart size={25} />
             </a>
@@ -61,7 +67,7 @@ const Navbar = () => {
           </div>
         </nav>
       </div>
-    </>
+    </main>
   );
 };
 

@@ -5,9 +5,11 @@ import React, { useCallback } from "react";
 
 export const Hamburger = () => {
   const navbarStore = useNavbar();
-  const handleClick = () => {
+
+  const handleClick = useCallback(() => {
     navbarStore.clicked();
-  };
+  }, [navbarStore]);
+
   return (
     <motion.div
       onHoverStart={navbarStore.onHoverStart}

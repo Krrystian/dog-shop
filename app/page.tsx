@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
-import Navbar from "./components/Navbar";
+import React, { useEffect } from "react";
+
 import { motion } from "framer-motion";
+import Rectangle from "./components/Rectangle";
 
 const Text = () => {
   return (
     <>
       <motion.p
-        className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl"
+        className="text-3xl md:text-3xl lg:text-4xl xl:text-5xl text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 2 }}
@@ -28,9 +29,8 @@ const Text = () => {
 
 const page = () => {
   return (
-    <>
-      <Navbar />
-      <div className="grid grid-cols-5 w-screen h-screen overflow-hidden bg-zinc-200">
+    <div className="w-screen h-screen overflow-x-hidden">
+      <div className="grid grid-cols-5 bg-zinc-200 h-screen">
         <div className="hidden md:col-span-3 md:flex md:flex-col gap-3 lg:gap-4 text-36 items-center justify-center">
           <Text />
         </div>
@@ -39,13 +39,14 @@ const page = () => {
             <Text />
           </div>
           <img
-            className="cover h-full"
+            className="cover h-screen w-full overflow-hidden"
             src="/wallpapers/when-your-dog-hungry.jpg"
             alt="doggo"
           ></img>
         </div>
       </div>
-    </>
+      <Rectangle />
+    </div>
   );
 };
 
