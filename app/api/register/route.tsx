@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 //wysyłanie rejestracji przez axios
+
 export async function POST(request: Request) {
   const body = await request.json();
   const { email, name, password } = body;

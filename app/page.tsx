@@ -2,7 +2,10 @@
 import React, { useEffect } from "react";
 
 import { motion } from "framer-motion";
-import Rectangle from "./components/Rectangle";
+import Segment from "./components/Segment";
+import Rectangle from "./components/segments/Rectangle";
+import LimitedOffer from "./components/LimitedOffer";
+import BestSelling from "./components/BestSelling";
 
 const Text = () => {
   return (
@@ -45,7 +48,9 @@ const page = () => {
           ></img>
         </div>
       </div>
-      <Rectangle />
+      <Segment />
+      <LimitedOffer />
+      <BestSelling />
     </div>
   );
 };
