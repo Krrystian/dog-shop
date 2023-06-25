@@ -1,6 +1,5 @@
 "use client";
 import React, { ReactNode } from "react";
-import Square from "./Square";
 
 interface RectangleProp {
   children?: ReactNode;
@@ -15,7 +14,9 @@ interface headerProp {
 }
 const Head: React.FC<headerProp> = ({ children }) => {
   return (
-    <div className="text-4xl w-full flex justify-center py-6">{children}</div>
+    <div className="text-4xl w-full flex justify-center py-6 col-span-3">
+      {children}
+    </div>
   );
 };
 
@@ -30,9 +31,9 @@ const Rectangle: React.FC<RectangleProp> = ({
   return (
     <div
       className={`w-screen text-zinc-800
-    ${bigger ? "min-h-[400px]" : "min-h-[300px]"}
+    ${bigger ? "min-h-[500px]" : "min-h-[300px]"}
     ${transparent ? "bg-zinc-200" : "bg-zinc-300"}
-    ${grid && "grid grid-cols-3"}`}
+    ${grid ? (bigger ? "grid grid-cols-4" : "grid grid-cols-3") : ""}`}
     >
       {header && <Head>{headerLabel}</Head>}
       {children}

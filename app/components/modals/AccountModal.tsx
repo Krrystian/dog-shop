@@ -6,7 +6,6 @@ import Heading from "../Heading";
 import { useRouter } from "next/navigation";
 import useAccountModal from "@/app/hooks/useAccountModal";
 import { SafeUser } from "@/app/types";
-
 interface AccountModalProps {
   currentUser: SafeUser | null;
 }
@@ -18,7 +17,10 @@ const LoginModal: React.FC<AccountModalProps> = ({ currentUser }) => {
     signOut();
     router.refresh();
   };
-  const handleSecondaryAction = () => {};
+  const handleSecondaryAction = () => {
+    router.push("/AccountPage");
+    accountModal.onClose();
+  };
 
   const body = (
     <div className="flex flex-col gap-4">
