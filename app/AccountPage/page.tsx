@@ -2,15 +2,30 @@ import React from "react";
 import getCurrentUser from "../actions/getCurrentUser";
 import AccountPage from "./components/AccountPage";
 import { Poppins } from "next/font/google";
+import UserSettings from "./components/UserSettings";
+import Orders from "./components/Orders";
+import AdminPage from "./components/AdminPage";
+import ProductList from "./components/ProductList";
+import AdminSettings from "./components/AdminSettings";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
 function AdminDashboard() {
-  return <div>a</div>;
+  return (
+    <AdminPage>
+      <AdminSettings />
+      <ProductList />
+    </AdminPage>
+  );
 }
 
 function AccountDashboard(userName: String | null) {
-  return <AccountPage name={userName} />;
+  return (
+    <AccountPage name={userName}>
+      <UserSettings />
+      <Orders />
+    </AccountPage>
+  );
 }
 
 export default async function page() {

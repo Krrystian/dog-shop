@@ -1,21 +1,17 @@
 "use client";
-import React from "react";
-import Orders from "./Orders";
-import UserSettings from "./UserSettings";
+import React, { ReactElement } from "react";
 interface AccountPageProps {
   name: String | null;
+  children: React.ReactNode;
 }
 
-const AccountPage: React.FC<AccountPageProps> = ({ name }) => {
+const AccountPage: React.FC<AccountPageProps> = ({ name, children }) => {
   return (
     <div className="h-screen w-screen bg-zinc-200">
       <div className="pt-36 flex justify-center items-center text-black">
         <h2 className="text-7xl">Hello {name}!</h2>
       </div>
-      <div className="flex flex-row mt-24">
-        <UserSettings />
-        <Orders />
-      </div>
+      <div className="flex flex-row mt-24">{children}</div>
     </div>
   );
 };
