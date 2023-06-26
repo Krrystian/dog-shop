@@ -14,6 +14,7 @@ model User {
   image          String?
   emailVerified  DateTime?
   hashedPassword String?
+  role           String    @default("user")
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   favoriteIds    String[]  @db.ObjectId
