@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 
 import { motion } from "framer-motion";
 import Segment from "./components/Segment";
-import Rectangle from "./components/segments/Rectangle";
 import LimitedOffer from "./components/LimitedOffer";
 import BestSelling from "./components/BestSelling";
 
