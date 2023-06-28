@@ -56,13 +56,16 @@ model Product {
 model ProductDetail {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   description String
+  image       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Product     Product?
 }
 
 model Category {
-  id      String    @id @default(auto()) @map("_id") @db.ObjectId
-  name    String
-  Product Product[]
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
 }

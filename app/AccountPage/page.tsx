@@ -7,6 +7,9 @@ import Orders from "./components/Orders";
 import AdminPage from "./components/AdminPage";
 import ProductList from "./components/ProductList";
 import AdminSettings from "./components/AdminSettings";
+import AdminCategories from "./components/AdminCategories";
+import NewCategoryModal from "../components/modals/NewCategoryModal";
+import "../globals.css";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
@@ -15,6 +18,8 @@ function AdminDashboard() {
     <AdminPage>
       <AdminSettings />
       <ProductList />
+      <AdminCategories />
+      <NewCategoryModal />
     </AdminPage>
   );
 }
