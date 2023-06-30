@@ -8,10 +8,10 @@ import useConfirmation from "@/app/hooks/useConfirmationModal";
 const ConfirmationModal = () => {
   const useConfirm = useConfirmation();
   const [isLoading, setIsLoading] = useState(false);
-  const deleteRecord = async (id: String) => {
+  const deleteRecord = async () => {
     setIsLoading(true);
     axios
-      .delete(`/api/category/getCategory/${id}`)
+      .delete(`/api/category/getCategory/${useConfirm.id}`)
       .then(() => {
         toast.success("Category removed");
         useConfirm.onClose();
@@ -31,7 +31,7 @@ const ConfirmationModal = () => {
       disabled={isLoading}
       isOpen={useConfirm.isOpen}
       onClose={useConfirm.onClose}
-      onSubmit={() => deleteRecord(useConfirm.id)}
+      onSubmit={() => deleteRecord()}
       secondaryAction={useConfirm.onClose}
     />
   );

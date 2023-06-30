@@ -1,29 +1,29 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import useAdminMenu from "@/app/hooks/useAdminMenu";
-import useNewCategory from "@/app/hooks/useNewCategory";
 import Item from "./Item";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import useConfirmationModal from "@/app/hooks/useConfirmationModal";
 import useCategoryEditModal from "@/app/hooks/useCategoryEditModal";
+import useCategory from "@/app/hooks/useCategory";
 
 const AdminCategories = () => {
   const useAdmin = useAdminMenu();
-  const useCategory = useNewCategory();
+  const useCat = useCategory();
   const useConfirm = useConfirmationModal();
   const useEdit = useCategoryEditModal();
-  const [categories, setCategories] = useState<any[]>([]);
   useEffect(() => {
     axios
       .get("/api/category/getCategory")
       .then((response) => {
-        setCategories(response.data);
+        useCat.setCategories(response.data);
       })
       .catch(() => {
         toast.error("Something went wrong");
       });
-  }, [useCategory.isOpen, useConfirm.isOpen, useEdit.isOpen]);
+    console.log(useCat.categories);
+  }, [useCat.isOpen, useConfirm.isOpen, useEdit.isOpen]);
 
   return (
     <div
@@ -34,12 +34,12 @@ const AdminCategories = () => {
       }
     >
       <h2 className="text-3xl flex justify-center border-b-2">Categories</h2>
-      <div className="cursor-pointer mb-3" onClick={useCategory.onOpen}>
+      <div className="cursor-pointer mb-3" onClick={useCat.onOpen}>
         Add new category
       </div>
       <div className="flex flex-col gap-2">
-        {categories.length > 0 &&
-          categories.map((product) => (
+        {useCat.categories.length > 0 &&
+          useCat.categories.map((product) => (
             <Item
               name={product.name}
               key={product.id}

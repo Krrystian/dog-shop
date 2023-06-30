@@ -6,10 +6,10 @@ import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
 import { toast } from "react-hot-toast";
-import useNewCategory from "@/app/hooks/useNewCategory";
+import useCategory from "@/app/hooks/useCategory";
 
 const NewCategoryModal = () => {
-  const useCategory = useNewCategory();
+  const useCat = useCategory();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -26,7 +26,7 @@ const NewCategoryModal = () => {
     axios
       .post("/api/category/registerCategory", data)
       .then(() => {
-        useCategory.onClose();
+        useCat.onClose();
       })
       .catch((error) => {
         toast.error("Something went wrong");
@@ -55,8 +55,8 @@ const NewCategoryModal = () => {
       title="New Product"
       actionLabel="Add"
       disabled={isLoading}
-      isOpen={useCategory.isOpen}
-      onClose={useCategory.onClose}
+      isOpen={useCat.isOpen}
+      onClose={useCat.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={body}
     />

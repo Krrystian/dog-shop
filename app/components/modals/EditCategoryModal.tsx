@@ -20,7 +20,7 @@ const EditCategoryModal = () => {
     },
   });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     axios
       .post(`/api/category/getCategory/${useEdit.id}`, data)
