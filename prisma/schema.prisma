@@ -41,16 +41,15 @@ model Account {
 }
 
 model Product {
-  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   price           Float
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  productDetailId String   @unique @db.ObjectId
-  categoryId      String   @db.ObjectId
-
-  productDetail ProductDetail @relation(fields: [productDetailId], references: [id], onDelete: Cascade)
-  category      Category      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  productDetailId String          @unique @db.ObjectId
+  categoryId      String          @db.ObjectId
+  ProductDetail   ProductDetail[]
+  Category        Category[]
 }
 
 model ProductDetail {
@@ -59,13 +58,15 @@ model ProductDetail {
   image       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  Product     Product?
+  Product     Product? @relation(fields: [productId], references: [id])
+  productId   String?  @db.ObjectId
 }
 
 model Category {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Product   Product[]
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?  @db.ObjectId
 }

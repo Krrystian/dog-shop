@@ -22,7 +22,6 @@ const AdminCategories = () => {
       .catch(() => {
         toast.error("Something went wrong");
       });
-    console.log(useCat.categories);
   }, [useCat.isOpen, useConfirm.isOpen, useEdit.isOpen]);
 
   return (

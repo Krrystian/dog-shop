@@ -6,12 +6,14 @@ import { FiShoppingCart } from "react-icons/fi";
 import UserMenu from "./navbar/UserMenu";
 import useNavbar from "../hooks/useNavbar";
 import { SafeUser } from "../types";
+import { useRouter } from "next/navigation";
 
 interface NavbarProps {
   currentUser: SafeUser | null;
 }
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const navbarStore = useNavbar();
+  const router = useRouter();
 
   return (
     <main>
@@ -42,7 +44,10 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
       )}
       <div className="w-screen h-[40px] fixed bg-[rgb(73,128,128)] px-6 text-lg text-white z-10">
         <nav className="flex justify-between pt-[6px]">
-          <div className="text-xl cursor-default">
+          <div
+            className="text-xl cursor-default"
+            onClick={() => router.push("/")}
+          >
             <span className=" text-cyan-950">Dog</span>Shop
           </div>
           <div className="hidden md:flex gap-4">
