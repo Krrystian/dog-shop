@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Heading from "../Heading";
@@ -24,7 +24,7 @@ const NewCategoryModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
     axios
-      .post("/api/registerCategory", data)
+      .post("/api/category/registerCategory", data)
       .then(() => {
         useCategory.onClose();
       })

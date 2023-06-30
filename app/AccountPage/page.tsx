@@ -10,6 +10,7 @@ import AdminSettings from "./components/AdminSettings";
 import AdminCategories from "./components/AdminCategories";
 import NewCategoryModal from "../components/modals/NewCategoryModal";
 import "../globals.css";
+import ConfirmationModal from "../components/modals/ConfirmationModal";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
@@ -20,6 +21,7 @@ function AdminDashboard() {
       <ProductList />
       <AdminCategories />
       <NewCategoryModal />
+      <ConfirmationModal />
     </AdminPage>
   );
 }

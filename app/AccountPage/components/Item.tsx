@@ -6,8 +6,9 @@ interface ItemProps {
   name: String;
   price?: String;
   category?: String;
+  del?: () => void;
 }
-const Item: React.FC<ItemProps> = ({ id, name, category, price }) => {
+const Item: React.FC<ItemProps> = ({ del, id, name, category, price }) => {
   return (
     <div key={id} className="border-2 border-black/60 p-1 flex justify-between">
       <div>
@@ -19,7 +20,7 @@ const Item: React.FC<ItemProps> = ({ id, name, category, price }) => {
         <button>
           <MdModeEditOutline color="orange" />
         </button>
-        <button>
+        <button onClick={del}>
           <MdOutlineDelete color="red" />
         </button>
       </div>

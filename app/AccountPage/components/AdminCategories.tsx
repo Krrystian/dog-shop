@@ -1,25 +1,28 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import useAdminMenu from "@/app/hooks/useAdminMenu";
 import useNewCategory from "@/app/hooks/useNewCategory";
 import Item from "./Item";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import useConfirmation from "@/app/hooks/useConfirmationModal";
+
 const AdminCategories = () => {
   const useAdmin = useAdminMenu();
   const useCategory = useNewCategory();
+  const useConfirm = useConfirmation();
   const [categories, setCategories] = useState<any[]>([]);
-
   useEffect(() => {
     axios
-      .get("/api/getCategory")
+      .get("/api/category/getCategory")
       .then((response) => {
         setCategories(response.data);
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error("Something went wrong");
       });
-  }, [useCategory.isOpen]);
+  }, [useCategory.isOpen, useConfirm.isOpen]);
+
   return (
     <div
       className={
@@ -35,7 +38,15 @@ const AdminCategories = () => {
       <div className="flex flex-col gap-2">
         {categories.length > 0 &&
           categories.map((product) => (
-            <Item name={product.name} id={product._id} />
+            <Item
+              name={product.name}
+              key={product.id}
+              del={() => {
+                useConfirm.setId(product.id);
+                useConfirm.onOpen();
+                // deleteRecord(String(product.id));
+              }}
+            />
           ))}
       </div>
     </div>
