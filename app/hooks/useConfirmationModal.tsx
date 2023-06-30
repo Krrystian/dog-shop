@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-interface ConfirmationModal {
+interface ConfirmationStore {
   isOpen: boolean;
   id: String;
   setId: (value: String) => void;
@@ -8,7 +8,7 @@ interface ConfirmationModal {
   onClose: () => void;
 }
 
-const useConfirmation = create<ConfirmationModal>((set) => ({
+const useConfirmationModal = create<ConfirmationStore>((set) => ({
   isOpen: false,
   id: "",
   onOpen: () => set({ isOpen: true }),
@@ -16,4 +16,4 @@ const useConfirmation = create<ConfirmationModal>((set) => ({
   setId: (value) => set({ id: value }),
 }));
 
-export default useConfirmation;
+export default useConfirmationModal;

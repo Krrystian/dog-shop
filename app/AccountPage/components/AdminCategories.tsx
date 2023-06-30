@@ -5,12 +5,14 @@ import useNewCategory from "@/app/hooks/useNewCategory";
 import Item from "./Item";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import useConfirmation from "@/app/hooks/useConfirmationModal";
+import useConfirmationModal from "@/app/hooks/useConfirmationModal";
+import useCategoryEditModal from "@/app/hooks/useCategoryEditModal";
 
 const AdminCategories = () => {
   const useAdmin = useAdminMenu();
   const useCategory = useNewCategory();
-  const useConfirm = useConfirmation();
+  const useConfirm = useConfirmationModal();
+  const useEdit = useCategoryEditModal();
   const [categories, setCategories] = useState<any[]>([]);
   useEffect(() => {
     axios
@@ -21,7 +23,7 @@ const AdminCategories = () => {
       .catch(() => {
         toast.error("Something went wrong");
       });
-  }, [useCategory.isOpen, useConfirm.isOpen]);
+  }, [useCategory.isOpen, useConfirm.isOpen, useEdit.isOpen]);
 
   return (
     <div
@@ -44,7 +46,10 @@ const AdminCategories = () => {
               del={() => {
                 useConfirm.setId(product.id);
                 useConfirm.onOpen();
-                // deleteRecord(String(product.id));
+              }}
+              edit={() => {
+                useEdit.setId(product.id);
+                useEdit.onOpen();
               }}
             />
           ))}

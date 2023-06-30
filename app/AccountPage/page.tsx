@@ -11,6 +11,7 @@ import AdminCategories from "./components/AdminCategories";
 import NewCategoryModal from "../components/modals/NewCategoryModal";
 import "../globals.css";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
+import EditCategoryModal from "../components/modals/EditCategoryModal";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
@@ -22,6 +23,7 @@ function AdminDashboard() {
       <AdminCategories />
       <NewCategoryModal />
       <ConfirmationModal />
+      <EditCategoryModal />
     </AdminPage>
   );
 }

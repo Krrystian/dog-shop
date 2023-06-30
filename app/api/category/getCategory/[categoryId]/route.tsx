@@ -1,7 +1,7 @@
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 interface IParams {
-  categoryId?: String;
+  categoryId?: string;
 }
 
 export async function DELETE(
@@ -18,4 +18,18 @@ export async function DELETE(
     },
   });
   return NextResponse.json(categoryDel);
+}
+export async function POST(request: Request, { params }: { params: IParams }) {
+  const { categoryId } = params;
+  const body = await request.json();
+  const { name } = body;
+  const categoryUpdate = await prisma.category.update({
+    where: {
+      id: categoryId,
+    },
+    data: {
+      name: name,
+    },
+  });
+  return NextResponse.json(categoryUpdate);
 }

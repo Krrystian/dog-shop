@@ -7,8 +7,16 @@ interface ItemProps {
   price?: String;
   category?: String;
   del?: () => void;
+  edit?: () => void;
 }
-const Item: React.FC<ItemProps> = ({ del, id, name, category, price }) => {
+const Item: React.FC<ItemProps> = ({
+  edit,
+  del,
+  id,
+  name,
+  category,
+  price,
+}) => {
   return (
     <div key={id} className="border-2 border-black/60 p-1 flex justify-between">
       <div>
@@ -17,7 +25,7 @@ const Item: React.FC<ItemProps> = ({ del, id, name, category, price }) => {
         {category && <h4>Category: {category}</h4>}
       </div>
       <div className="flex gap-3">
-        <button>
+        <button onClick={edit}>
           <MdModeEditOutline color="orange" />
         </button>
         <button onClick={del}>
