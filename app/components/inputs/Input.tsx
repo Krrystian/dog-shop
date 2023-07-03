@@ -1,5 +1,5 @@
 "use client";
-//1:23:26 min
+
 import React from "react";
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import { BiDollar } from "react-icons/bi";
