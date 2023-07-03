@@ -1,6 +1,7 @@
 "use client";
 import useAccountModal from "@/app/hooks/useAccountModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import useNavbar from "@/app/hooks/useNavbar";
 import { SafeUser } from "@/app/types";
 import { MdAccountCircle } from "react-icons/md";
 
@@ -10,6 +11,7 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const accountModal = useAccountModal();
   const loginModal = useLoginModal();
+  const useNav = useNavbar();
   return (
     <>
       {currentUser ? (
@@ -17,7 +19,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className="hidden md:block" onClick={accountModal.onOpen}>
             <MdAccountCircle size={25} color="#F4C430" />
           </div>
-          <div className="md:hidden flex" onClick={accountModal.onOpen}>
+          <div
+            className="md:hidden flex"
+            onClick={() => {
+              accountModal.onOpen();
+              useNav.clicked();
+            }}
+          >
             Your Account
           </div>
         </button>

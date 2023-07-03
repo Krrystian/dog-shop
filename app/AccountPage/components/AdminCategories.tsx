@@ -7,28 +7,44 @@ import { toast } from "react-hot-toast";
 import useConfirmationModal from "@/app/hooks/useConfirmationModal";
 import useCategoryEditModal from "@/app/hooks/useCategoryEditModal";
 import useCategory from "@/app/hooks/useCategory";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 const AdminCategories = () => {
   const useAdmin = useAdminMenu();
   const useCat = useCategory();
   const useConfirm = useConfirmationModal();
   const useEdit = useCategoryEditModal();
+  const [current, setCurrent] = useState<number>(0);
+  const [max, setMax] = useState<number>(1);
+
   useEffect(() => {
     axios
-      .get("/api/category/getCategory")
+      .get(`/api/category/getCategory/${current}`)
       .then((response) => {
         useCat.setCategories(response.data);
+        response.data.length === 11 && setMax(current + 2);
       })
       .catch(() => {
         toast.error("Something went wrong");
       });
-  }, [useCat.isOpen, useConfirm.isOpen, useEdit.isOpen]);
+  }, [useCat.isOpen, useConfirm.isOpen, useEdit.isOpen, current]);
+
+  const next = () => {
+    if (current + 1 < max) setCurrent(current + 1);
+  };
+
+  const previous = () => {
+    if (current !== 0) {
+      setMax(max - 1);
+      setCurrent(current - 1);
+    }
+  };
 
   return (
     <div
       className={
         useAdmin.selected === 2
-          ? "bg-white w-[70%] h-screen p-3"
+          ? "bg-white md:w-[70%] h-screen p-3"
           : "hidden z-[-1]"
       }
     >
@@ -38,20 +54,31 @@ const AdminCategories = () => {
       </div>
       <div className="flex flex-col gap-2">
         {useCat.categories.length > 0 &&
-          useCat.categories.map((product) => (
-            <Item
-              name={product.name}
-              key={product.id}
-              del={() => {
-                useConfirm.setId(product.id);
-                useConfirm.onOpen();
-              }}
-              edit={() => {
-                useEdit.setId(product.id);
-                useEdit.onOpen();
-              }}
-            />
-          ))}
+          useCat.categories.slice(0, 10).map((product) => {
+            return (
+              <Item
+                name={product.name}
+                key={product.id}
+                del={() => {
+                  useConfirm.setId(product.id);
+                  useConfirm.onOpen();
+                }}
+                edit={() => {
+                  useEdit.setId(product.id);
+                  useEdit.onOpen();
+                }}
+              />
+            );
+          })}
+      </div>
+      <div
+        className={
+          max <= 1 && current === 0 ? "hidden" : "flex justify-center p-3 gap-3"
+        }
+      >
+        <AiOutlineArrowLeft size={28} onClick={() => previous()} />
+        <p>{current + 1}</p>
+        <AiOutlineArrowRight size={28} onClick={() => next()} />
       </div>
     </div>
   );

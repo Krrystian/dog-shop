@@ -5,7 +5,7 @@ import React from "react";
 const AdminSettings = () => {
   const useAdmin = useAdminMenu();
   return (
-    <div className="flex flex-col w-[30%]">
+    <div className="flex flex-col md:w-[30%]">
       <div className="text-3xl flex justify-center">Settings</div>
       <ul className="text-2xl flex flex-col gap-3 p-4 justify-center text-center">
         <li

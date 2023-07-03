@@ -5,13 +5,14 @@ import { Poppins } from "next/font/google";
 import UserSettings from "./components/UserSettings";
 import Orders from "./components/Orders";
 import AdminPage from "./components/AdminPage";
-import ProductList from "./components/ProductList";
 import AdminSettings from "./components/AdminSettings";
 import AdminCategories from "./components/AdminCategories";
 import NewCategoryModal from "../components/modals/NewCategoryModal";
 import "../globals.css";
 import ConfirmationModal from "../components/modals/ConfirmationModal";
 import EditCategoryModal from "../components/modals/EditCategoryModal";
+import AdminProducts from "./components/AdminProducts";
+import NewProductModal from "../components/modals/NewProductModal";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
@@ -19,11 +20,12 @@ function AdminDashboard() {
   return (
     <AdminPage>
       <AdminSettings />
-      <ProductList />
+      <AdminProducts />
       <AdminCategories />
       <NewCategoryModal />
       <ConfirmationModal />
       <EditCategoryModal />
+      <NewProductModal />
     </AdminPage>
   );
 }
@@ -40,7 +42,9 @@ function AccountDashboard(userName: String | null) {
 export default async function page() {
   const currentUser = await getCurrentUser();
   return (
-    <div className={`${poppins.className} h-screen w-screen overflow-hidden`}>
+    <div
+      className={`${poppins.className} h-screen w-screen overflow-x-hidden md:overflow-hidden`}
+    >
       {currentUser?.role === "user"
         ? AccountDashboard(currentUser.name)
         : AdminDashboard()}

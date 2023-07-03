@@ -33,3 +33,11 @@ export async function POST(request: Request, { params }: { params: IParams }) {
   });
   return NextResponse.json(categoryUpdate);
 }
+export async function GET(request: Request, { params }: { params: IParams }) {
+  const { categoryId } = params;
+  const products = await prisma.category.findMany({
+    skip: 10 * Number(categoryId),
+    take: 11,
+  });
+  return NextResponse.json(products);
+}

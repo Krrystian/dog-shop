@@ -44,6 +44,7 @@ model Product {
   id              String          @id @default(auto()) @map("_id") @db.ObjectId
   name            String
   price           Float
+  image           String
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   productDetailId String          @unique @db.ObjectId
@@ -55,7 +56,6 @@ model Product {
 model ProductDetail {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   description String
-  image       String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Product     Product? @relation(fields: [productId], references: [id])
