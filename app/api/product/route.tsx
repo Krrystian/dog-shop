@@ -14,7 +14,7 @@ export async function POST(request: Request) {
           description,
         },
       },
-      Category: {
+      category: {
         connect: {
           id: categoryId,
         },
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     },
     include: {
       ProductDetail: true,
-      Category: true,
+      category: true,
     },
   });
   return NextResponse.json(user);

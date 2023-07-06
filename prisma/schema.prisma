@@ -43,12 +43,13 @@ model Account {
 model Product {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String
-  price         Float
+  price         String
   image         String
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
+  category      Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId    String          @db.ObjectId
   ProductDetail ProductDetail[]
-  Category      Category[]
 }
 
 model ProductDetail {
@@ -56,15 +57,14 @@ model ProductDetail {
   description String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  Product     Product? @relation(fields: [productId], references: [id])
+  Product     Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId   String?  @db.ObjectId
 }
 
 model Category {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Product   Product? @relation(fields: [productId], references: [id])
-  productId String?  @db.ObjectId
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  products  Product[]
 }

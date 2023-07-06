@@ -29,11 +29,12 @@ const SelectCategory: React.FC<InputProps> = ({
         placeholder=" "
         className="peer w-full p-4 pt-7 font-light bg-white border-2 rounded-md outline-none disabled:opacity-70 disabled:cursor-not-allowed pl-4"
       >
-        {useCat.categories.map((category, index) => (
-          <option key={index} value={category.id}>
-            {category.name}
-          </option>
-        ))}
+        {useCat.categories.length > 0 &&
+          useCat.categories.map((category, index) => (
+            <option key={index} value={category.id}>
+              {category.name}
+            </option>
+          ))}
       </select>
       <label
         className={` absolute text-md duration-150 transform -translate-y-3 top-5 z-10 origin-[0] 

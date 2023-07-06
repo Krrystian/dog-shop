@@ -26,7 +26,7 @@ const EditCategoryModal = () => {
       .post(`/api/category/getCategory/${useEdit.id}`, data)
       .then(() => {
         toast.success("Category name changed");
-        useEdit.onClose();
+        useEdit.onCloseCat();
       })
       .catch((error) => {
         toast.error(String(error));
@@ -54,10 +54,10 @@ const EditCategoryModal = () => {
       actionLabel="Confirm"
       secondaryActionLabel="Cancel"
       disabled={isLoading}
-      isOpen={useEdit.isOpen}
-      onClose={useEdit.onClose}
+      isOpen={useEdit.isOpenCat}
+      onClose={useEdit.onCloseCat}
       onSubmit={handleSubmit(onSubmit)}
-      secondaryAction={useEdit.onClose}
+      secondaryAction={useEdit.onCloseCat}
       body={body}
     />
   );

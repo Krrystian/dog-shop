@@ -21,7 +21,7 @@ const Item: React.FC<ItemProps> = ({
     <div key={id} className="border-2 border-black/60 p-1 flex justify-between">
       <div>
         <h4>Name: {name}</h4>
-        {price && <h4>Price: {price}</h4>}
+        {price && <h4>Price: {price}$</h4>}
         {category && <h4>Category: {category}</h4>}
       </div>
       <div className="flex gap-3">

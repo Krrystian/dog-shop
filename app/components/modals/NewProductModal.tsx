@@ -32,7 +32,7 @@ const NewProductModal = () => {
       name: "",
       price: "",
       image: "",
-      categoryId: "0",
+      categoryId: "",
       description: "",
     },
   });
@@ -69,6 +69,7 @@ const NewProductModal = () => {
         label="Price"
         formatPrice={true}
         disabled={isLoading}
+        type="float"
         register={register}
         errors={errors}
         required
@@ -90,7 +91,7 @@ const NewProductModal = () => {
           subtitle="2 of 2 - Additional Information"
         />
         <SelectCategory
-          id="category"
+          id="categoryId"
           label="Category"
           disabled={isLoading}
           register={register}
@@ -113,18 +114,18 @@ const NewProductModal = () => {
     if (step === STEPS.BASIC) return next();
     setIsLoading(true);
     axios
-      .post("", data)
+      .post("/api/product/", data)
       .then(() => {
         useProd.onClose();
         reset();
         setStep(0);
+        toast.success("Product added!");
       })
       .catch((error) => {
         toast.error("Something went wrong");
       })
       .finally(() => {
         setIsLoading(false);
-        toast.success("Product added!");
       });
   };
   return (

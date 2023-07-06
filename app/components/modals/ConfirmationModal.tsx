@@ -11,7 +11,7 @@ const ConfirmationModal = () => {
   const deleteRecord = async () => {
     setIsLoading(true);
     axios
-      .delete(`/api/category/getCategory/${useConfirm.id}`)
+      .delete(`${useConfirm.path}/${useConfirm.id}`)
       .then(() => {
         toast.success("Category removed");
         useConfirm.onClose();

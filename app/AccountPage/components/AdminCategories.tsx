@@ -27,7 +27,7 @@ const AdminCategories = () => {
       .catch(() => {
         toast.error("Something went wrong");
       });
-  }, [useCat.isOpen, useConfirm.isOpen, useEdit.isOpen, current]);
+  }, [useCat.isOpen, useConfirm.isOpen, useEdit.isOpenCat, current]);
 
   const next = () => {
     if (current + 1 < max) setCurrent(current + 1);
@@ -60,12 +60,13 @@ const AdminCategories = () => {
                 name={product.name}
                 key={product.id}
                 del={() => {
+                  useConfirm.setPath("/api/category/getCategory");
                   useConfirm.setId(product.id);
                   useConfirm.onOpen();
                 }}
                 edit={() => {
                   useEdit.setId(product.id);
-                  useEdit.onOpen();
+                  useEdit.onOpenCat();
                 }}
               />
             );
