@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect } from "react";
-
 import { motion } from "framer-motion";
 import Segment from "./components/Segment";
 import LimitedOffer from "./components/LimitedOffer";
 import BestSelling from "./components/BestSelling";
+import Menu from "./components/Products/Menu";
 
 const Text = () => {
   return (
@@ -50,6 +50,7 @@ const page = () => {
       <Segment />
       <LimitedOffer />
       <BestSelling />
+      <Menu />
     </div>
   );
 };

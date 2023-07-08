@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-const LimitedOffer = () => {
+const BestSelling = () => {
   type Product = {
     name: string;
     id: string;
@@ -47,4 +47,4 @@ const LimitedOffer = () => {
   );
 };
 
-export default LimitedOffer;
+export default BestSelling;
