@@ -3,15 +3,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { toast } from "react-hot-toast";
-import useCategoryEditModal from "@/app/hooks/useCategoryEditModal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "../inputs/Input";
 import ImageUpload from "../inputs/ImageUpload";
 import SelectCategory from "../inputs/SelectCategory";
 import Description from "../inputs/Description";
+import useEditModal from "@/app/hooks/useEditModal";
 
 const EditProductModal = () => {
-  const useEdit = useCategoryEditModal();
+  const useEdit = useEditModal();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -26,18 +26,17 @@ const EditProductModal = () => {
       image: "",
       description: "",
       categoryId: "",
+      categoryId2: "",
+      productDetailId: "",
     },
   });
   const image = watch("image");
-  const name = watch("name");
-  const price = watch("price");
   const description = watch("description");
-  const categoryId = watch("categoryId");
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setIsLoading(true);
     axios
-      .post(`${useEdit.id}`, data)
+      .post(`/api/product/getProduct/${useEdit.id}`, data)
       .then(() => {
         toast.success("Product changed!");
         useEdit.onCloseProd();
@@ -53,8 +52,10 @@ const EditProductModal = () => {
     setValue("image", useEdit.product?.image);
     setValue("name", useEdit.product?.name);
     setValue("description", useEdit.product?.ProductDetail[0]?.description);
+    setValue("productDetailId", useEdit.product?.ProductDetail[0]?.id);
     setValue("price", useEdit.product?.price);
     setValue("categoryId", useEdit.product?.categoryId);
+    setValue("categoryId2", useEdit.product?.categoryId2);
   }, [useEdit.isOpenProd]);
 
   let body = (
@@ -85,11 +86,18 @@ const EditProductModal = () => {
       />
       <SelectCategory
         id="categoryId"
-        label="Category"
+        label="First Category"
         disabled={isLoading}
         register={register}
         errors={errors}
         required
+      />
+      <SelectCategory
+        id="categoryId2"
+        label="Second Category"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
       />
       <Description
         id="description"

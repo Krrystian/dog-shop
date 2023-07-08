@@ -47,8 +47,8 @@ model Product {
   image         String
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
-  category      Category        @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId    String          @db.ObjectId
+  categoriesIds String[]        @db.ObjectId
+  category      Category[]      @relation(fields: [categoriesIds], references: [id])
   ProductDetail ProductDetail[]
 }
 
@@ -62,9 +62,10 @@ model ProductDetail {
 }
 
 model Category {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  products  Product[]
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String    @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  productsIds String[]  @db.ObjectId
+  products    Product[] @relation(fields: [productsIds], references: [id])
 }

@@ -3,8 +3,9 @@ type Product = {
   name: string;
   price: string;
   image: string;
-  ProductDetail: { description: string }[];
+  ProductDetail: { description: string; id: string }[];
   categoryId: string;
+  categoryId2: string;
 };
 
 interface EditStore {
@@ -20,7 +21,7 @@ interface EditStore {
   onCloseProd: () => void;
 }
 
-const useCategoryEditModal = create<EditStore>((set) => ({
+const useEditModal = create<EditStore>((set) => ({
   isOpenCat: false,
   isOpenProd: false,
   id: "",
@@ -34,4 +35,4 @@ const useCategoryEditModal = create<EditStore>((set) => ({
   setId: (value: string) => set({ id: value }),
 }));
 
-export default useCategoryEditModal;
+export default useEditModal;

@@ -3,12 +3,12 @@ import axios from "axios";
 import { useState } from "react";
 import Modal from "./Modal";
 import { toast } from "react-hot-toast";
-import useCategoryEditModal from "@/app/hooks/useCategoryEditModal";
+import useEditModal from "@/app/hooks/useEditModal";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "../inputs/Input";
 
 const EditCategoryModal = () => {
-  const useEdit = useCategoryEditModal();
+  const useEdit = useEditModal();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,

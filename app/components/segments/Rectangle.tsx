@@ -33,7 +33,13 @@ const Rectangle: React.FC<RectangleProp> = ({
       className={`w-screen text-zinc-800
     ${bigger ? "min-h-[500px]" : "min-h-[300px]"}
     ${transparent ? "bg-zinc-200" : "bg-zinc-300"}
-    ${grid ? (bigger ? "grid grid-cols-4" : "grid grid-cols-3") : ""}`}
+    ${
+      grid
+        ? bigger
+          ? "grid grid-cols-4"
+          : "grid grid-cols-3"
+        : "flex flex-col items-center"
+    }`}
     >
       {header && <Head>{headerLabel}</Head>}
       {children}

@@ -33,10 +33,12 @@ const NewProductModal = () => {
       price: "",
       image: "",
       categoryId: "",
+      categoryId2: "",
       description: "",
     },
   });
   const image = watch("image");
+  const categoryId = watch("categoryId");
 
   const next = () => {
     setStep(step + 1);
@@ -92,11 +94,18 @@ const NewProductModal = () => {
         />
         <SelectCategory
           id="categoryId"
-          label="Category"
+          label="First Category"
           disabled={isLoading}
           register={register}
           errors={errors}
           required
+        />
+        <SelectCategory
+          id="categoryId2"
+          label="Second Category (not required)"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
         />
         <Description
           id="description"

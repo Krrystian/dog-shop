@@ -5,15 +5,15 @@ import Item from "./Item";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import useConfirmationModal from "@/app/hooks/useConfirmationModal";
-import useCategoryEditModal from "@/app/hooks/useCategoryEditModal";
 import useCategory from "@/app/hooks/useCategory";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import useEditModal from "@/app/hooks/useEditModal";
 
 const AdminCategories = () => {
   const useAdmin = useAdminMenu();
   const useCat = useCategory();
   const useConfirm = useConfirmationModal();
-  const useEdit = useCategoryEditModal();
+  const useEdit = useEditModal();
   const [current, setCurrent] = useState<number>(0);
   const [max, setMax] = useState<number>(1);
 

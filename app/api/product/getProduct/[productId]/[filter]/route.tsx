@@ -7,7 +7,6 @@ interface IParams {
 }
 export async function GET(request: Request, { params }: { params: IParams }) {
   const { productId, filter } = params;
-  console.log(filter);
   const searchQuery: Prisma.ProductWhereInput = {
     OR: [
       {
@@ -18,9 +17,11 @@ export async function GET(request: Request, { params }: { params: IParams }) {
       },
       {
         category: {
-          name: {
-            contains: filter,
-            mode: "insensitive",
+          some: {
+            name: {
+              contains: filter,
+              mode: "insensitive",
+            },
           },
         },
       },

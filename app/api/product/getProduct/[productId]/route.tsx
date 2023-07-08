@@ -21,10 +21,75 @@ export async function DELETE(
   { params }: { params: IParams }
 ) {
   const { productId } = params;
+
+  const productUpdate = await prisma.product.update({
+    where: {
+      id: productId,
+    },
+    data: {
+      category: {
+        set: [],
+      },
+    },
+    include: {
+      category: true,
+    },
+  });
   const products = await prisma.product.delete({
     where: {
       id: productId,
     },
+    include: { category: true },
   });
-  return NextResponse.json(products);
+  return NextResponse.json({});
+}
+
+export async function POST(request: Request, { params }: { params: IParams }) {
+  const { productId } = params;
+  const body = await request.json();
+  const {
+    name,
+    price,
+    image,
+    description,
+    categoryId,
+    productDetailId,
+    categoryId2,
+  } = body;
+  const productUpdate = await prisma.product.update({
+    where: {
+      id: productId,
+    },
+    data: {
+      name: name,
+      price: price,
+      image: image,
+      ProductDetail: {
+        update: {
+          where: {
+            id: productDetailId,
+          },
+          data: {
+            description: description,
+          },
+        },
+      },
+      category: {
+        set: [],
+        connect: [
+          {
+            id: categoryId,
+          },
+          {
+            id: categoryId2,
+          },
+        ],
+      },
+    },
+    include: {
+      category: true,
+      ProductDetail: true,
+    },
+  });
+  return NextResponse.json(productUpdate);
 }

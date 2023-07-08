@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Item from "./Item";
 import useAdminMenu from "@/app/hooks/useAdminMenu";
 import useProduct from "@/app/hooks/useProduct";
@@ -7,7 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import useConfirmationModal from "@/app/hooks/useConfirmationModal";
-import useCategoryEditModal from "@/app/hooks/useCategoryEditModal";
+import useCategoryEditModal from "@/app/hooks/useEditModal";
 
 const AdminProducts = () => {
   const useAdmin = useAdminMenu();
@@ -26,7 +26,6 @@ const AdminProducts = () => {
     id: string;
   };
   const [products, setProducts] = useState<Products[]>([]);
-
   useEffect(() => {
     axios
       .get(`/api/product/getProduct/${current}/${filter}`)
@@ -38,7 +37,14 @@ const AdminProducts = () => {
       .catch(() => {
         toast.error("Something went wrong");
       });
-  }, [current, useProd.isOpen, filter, useConfirm.isOpen]);
+  }, [current, useProd.isOpen, filter, useConfirm.isOpen, useEdit.isOpenProd]);
+  const categoryHandle = useCallback((data: any) => {
+    let arr: any[] = [];
+    data.forEach((element: any) => {
+      arr.push(element.name);
+    });
+    return arr.join(", ");
+  }, []);
   const next = () => {
     if (current + 1 < max) setCurrent(current + 1);
   };
@@ -97,7 +103,7 @@ const AdminProducts = () => {
             <Item
               key={index}
               name={product.name}
-              category={product.category.name}
+              category={categoryHandle(product.category)}
               price={product.price}
               del={() => {
                 useConfirm.setPath("/api/product/getProduct");
