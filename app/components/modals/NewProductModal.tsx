@@ -38,7 +38,6 @@ const NewProductModal = () => {
     },
   });
   const image = watch("image");
-  const categoryId = watch("categoryId");
 
   const next = () => {
     setStep(step + 1);

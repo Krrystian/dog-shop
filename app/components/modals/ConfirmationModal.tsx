@@ -13,7 +13,7 @@ const ConfirmationModal = () => {
     axios
       .delete(`${useConfirm.path}/${useConfirm.id}`)
       .then(() => {
-        toast.success("Category removed");
+        toast.success("Item removed");
         useConfirm.onClose();
       })
       .catch((error) => {

@@ -56,40 +56,75 @@ export async function POST(request: Request, { params }: { params: IParams }) {
     productDetailId,
     categoryId2,
   } = body;
-  const productUpdate = await prisma.product.update({
-    where: {
-      id: productId,
-    },
-    data: {
-      name: name,
-      price: price,
-      image: image,
-      ProductDetail: {
-        update: {
-          where: {
-            id: productDetailId,
-          },
-          data: {
-            description: description,
+  if (categoryId2 === "" || categoryId2 === undefined) {
+    const productUpdate = await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        name: name,
+        price: price,
+        image: image,
+        ProductDetail: {
+          update: {
+            where: {
+              id: productDetailId,
+            },
+            data: {
+              description: description,
+            },
           },
         },
+        category: {
+          set: [],
+          connect: [
+            {
+              id: categoryId,
+            },
+          ],
+        },
       },
-      category: {
-        set: [],
-        connect: [
-          {
-            id: categoryId,
-          },
-          {
-            id: categoryId2,
-          },
-        ],
+      include: {
+        category: true,
+        ProductDetail: true,
       },
-    },
-    include: {
-      category: true,
-      ProductDetail: true,
-    },
-  });
-  return NextResponse.json(productUpdate);
+    });
+  } else {
+    const productUpdate = await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        name: name,
+        price: price,
+        image: image,
+        ProductDetail: {
+          update: {
+            where: {
+              id: productDetailId,
+            },
+            data: {
+              description: description,
+            },
+          },
+        },
+        category: {
+          set: [],
+          connect: [
+            {
+              id: categoryId,
+            },
+            {
+              id: categoryId2,
+            },
+          ],
+        },
+      },
+      include: {
+        category: true,
+        ProductDetail: true,
+      },
+    });
+  }
+  return NextResponse.json({});
 }

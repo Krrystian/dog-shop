@@ -8,17 +8,18 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
-  email          String?   @unique
+  email          String?       @unique
   image          String?
   emailVerified  DateTime?
   hashedPassword String?
-  role           String    @default("user")
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  favoriteIds    String[]  @db.ObjectId
+  role           String        @default("user")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  favoriteIds    String[]      @db.ObjectId
   accounts       Account[]
+  orders         OrderHeader[]
 }
 
 model Account {
@@ -50,6 +51,7 @@ model Product {
   categoriesIds String[]        @db.ObjectId
   category      Category[]      @relation(fields: [categoriesIds], references: [id])
   ProductDetail ProductDetail[]
+  orderDetail   OrderDetail[]
 }
 
 model ProductDetail {
@@ -68,4 +70,37 @@ model Category {
   updatedAt   DateTime  @updatedAt
   productsIds String[]  @db.ObjectId
   products    Product[] @relation(fields: [productsIds], references: [id])
+}
+
+model OrderDetail {
+  id               String       @id @default(auto()) @map("_id") @db.ObjectId
+  quantity         String
+  transactionPrice String
+  Product          Product?     @relation(fields: [productId], references: [id])
+  productId        String?      @db.ObjectId
+  OrderHeader      OrderHeader? @relation(fields: [orderHeaderId], references: [id])
+  orderHeaderId    String?      @db.ObjectId
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+}
+
+model DeliveryPlace {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  country     String
+  city        String
+  zipCode     String
+  street      String
+  houseNumber String
+  OrderHeader OrderHeader[]
+}
+
+model OrderHeader {
+  id              String        @id @default(auto()) @map("_id") @db.ObjectId
+  orderDetail     OrderDetail[]
+  deliveryPlace   DeliveryPlace @relation(fields: [deliveryPlaceId], references: [id])
+  deliveryPlaceId String        @db.ObjectId
+  User            User?         @relation(fields: [userId], references: [id])
+  userId          String?       @db.ObjectId
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
