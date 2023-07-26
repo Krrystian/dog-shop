@@ -1,11 +1,12 @@
 import useCategory from "@/app/hooks/useCategory";
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ProductList from "./ProductList";
 
 const Menu = () => {
   const useCat = useCategory();
+  const [catName, setCatName] = useState<string>("All products");
   const Heading = () => {
     return <div className="w-full text-center text-3xl">Categories</div>;
   };
@@ -31,6 +32,7 @@ const Menu = () => {
       })
       .catch((e) => toast.error("Something went wrong: " + e));
   });
+
   return (
     <div className="flex flex-row">
       <div className="min-h-[656px] w-[26%] bg-[#D4D4D8] flex flex-col gap-3 px-[40px] justify-center cursor-default">
@@ -41,12 +43,14 @@ const Menu = () => {
               <Category
                 name={category.name}
                 key={index}
-                onClick={() => console.log("")}
+                onClick={() => {
+                  setCatName(category.name);
+                }}
               />
             );
           })}
       </div>
-      <ProductList />
+      <ProductList name={catName} />
     </div>
   );
 };
