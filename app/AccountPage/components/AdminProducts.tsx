@@ -31,7 +31,7 @@ const AdminProducts = () => {
       .get(`/api/product/getProduct/${current}/${filter}`)
       .then((response) => {
         setProducts(response.data);
-        if (response.data.length === 5) setMax(current + 2);
+        if (response.data.length >= 5) setMax(current + 2);
         else setMax(current + 1);
       })
       .catch(() => {

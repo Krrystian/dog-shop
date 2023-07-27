@@ -1,6 +1,7 @@
+"use client";
 import useCategory from "@/app/hooks/useCategory";
 import axios from "axios";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ProductList from "./ProductList";
 
@@ -24,6 +25,7 @@ const Menu = () => {
       </div>
     );
   };
+
   useEffect(() => {
     axios
       .get(`/api/category/getCategory`)
@@ -31,7 +33,7 @@ const Menu = () => {
         useCat.setCategories(response.data);
       })
       .catch((e) => toast.error("Something went wrong: " + e));
-  });
+  }, []);
 
   return (
     <div className="flex flex-row">
