@@ -7,7 +7,7 @@ export async function GET(request: Request, { params }: { params: IParams }) {
   const { productId } = params;
   const products = await prisma.product.findMany({
     skip: 4 * Number(productId),
-    take: 5,
+    take: 9,
     include: {
       category: true,
       ProductDetail: true,

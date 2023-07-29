@@ -48,7 +48,6 @@ const AdminProducts = () => {
   const next = () => {
     if (current + 1 < max) setCurrent(current + 1);
   };
-
   const previous = () => {
     if (current !== 0) {
       setMax(max - 1);

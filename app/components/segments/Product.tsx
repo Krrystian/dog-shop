@@ -15,17 +15,23 @@ const Product: React.FC<ProductProps> = ({
 }) => {
   return (
     <div
-      className="w-[283px] h-[338px] text-2xl flex flex-col cursor-pointer"
+      className={
+        smaller
+          ? "w-[196px] h-[221px] flex-col cursor-pointer"
+          : "w-[283px] h-[338px] text-2xl flex flex-col cursor-pointer"
+      }
       onClick={action}
     >
       <img
-        className="object-cover h-[306px]"
+        className={
+          smaller ? "object-cover h-[177px] w-full" : "object-cover h-[306px]"
+        }
         src={image}
         alt="Product Image"
       ></img>
       <div className="flex flex-row justify-between">
         <h2>{label}</h2>
-        <p className="text-lg pt-1">{price}$</p>
+        <p className={smaller ? " text-base pt-1" : "text-lg pt-1"}>{price}$</p>
       </div>
     </div>
   );
