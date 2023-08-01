@@ -5,6 +5,7 @@ import Segment from "./components/Segment";
 import LimitedOffer from "./components/LimitedOffer";
 import BestSelling from "./components/BestSelling";
 import Menu from "./components/Products/Menu";
+import Footer from "./components/Footer";
 
 const Text = () => {
   return (
@@ -51,6 +52,7 @@ const page = () => {
       <LimitedOffer />
       <BestSelling />
       <Menu />
+      <Footer />
     </div>
   );
 };
