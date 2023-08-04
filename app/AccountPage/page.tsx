@@ -2,8 +2,6 @@ import React from "react";
 import getCurrentUser from "../actions/getCurrentUser";
 import AccountPage from "./components/AccountPage";
 import { Poppins } from "next/font/google";
-import UserSettings from "./components/UserSettings";
-import Orders from "./components/Orders";
 import AdminPage from "./components/AdminPage";
 import AdminSettings from "./components/AdminSettings";
 import AdminCategories from "./components/AdminCategories";
@@ -14,6 +12,8 @@ import EditCategoryModal from "../components/modals/EditCategoryModal";
 import AdminProducts from "./components/AdminProducts";
 import NewProductModal from "../components/modals/NewProductModal";
 import EditProductModal from "../components/modals/EditProductModal";
+import AccountSettings from "./components/AccountSettings";
+import AccountOrders from "./components/AccountOrders";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
@@ -35,8 +35,8 @@ function AdminDashboard() {
 function AccountDashboard(userName: String | null) {
   return (
     <AccountPage name={userName}>
-      <UserSettings />
-      <Orders />
+      <AccountSettings />
+      <AccountOrders />
     </AccountPage>
   );
 }

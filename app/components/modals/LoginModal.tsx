@@ -48,6 +48,7 @@ const LoginModal = () => {
     loginModal.onClose();
     registerModal.onOpen();
   }, [registerModal, loginModal]);
+
   const body = (
     <div className="flex flex-col gap-4">
       <Heading center title="Welcome back" subtitle="Login to your account!" />
