@@ -81,9 +81,9 @@ const ProductList: React.FC<ProductListProps> = ({ name }) => {
     setText(event.target.value);
   };
   return (
-    <div className="min-h-[656px] bg-[#E4E4E7] w-[74%] py-4 flex items-center flex-col">
+    <div className="min-h-[656px] bg-[#E4E4E7] md:w-[74%] py-4 flex items-center flex-col">
       <Heading name={name} />
-      <div className="flex self-end gap-1 pr-2">
+      <div className="flex self-center md:self-end gap-1 pr-2">
         <h3 className="cursor-default">Search:</h3>
         <input
           className="bg-black/20 rounded-bl-xl rounded-br-xl px-4"
@@ -103,7 +103,7 @@ const ProductList: React.FC<ProductListProps> = ({ name }) => {
           Enter
         </button>
       </div>
-      <div className="grid grid-cols-2 gap-4 gap-x-8 md:grid-cols-3 xl:grid-cols-4 mt-14">
+      <div className="grid grid-cols-2 gap-4 md:gap-x-8 md:grid-cols-3 xl:grid-cols-4 mt-14">
         {products?.slice(0, 8).map((product) => (
           <Product
             smaller

@@ -30,10 +30,12 @@ const page = ({ params }: { params: IParams }) => {
 
   const addProduct = useCallback(() => {
     const getList = JSON.parse(localStorage.getItem("products") || "[]");
-    if (getList.some((item: any) => item.id === productId))
+    if (getList.some((item: any) => item.id === productId)) {
       return toast.error("Product already in cart!");
+    }
     const updatedProducts = [...getList, { id: productId, quantity: quantity }];
     localStorage.setItem("products", JSON.stringify(updatedProducts));
+    router.refresh();
     return toast.success("Product added!");
   }, []);
 

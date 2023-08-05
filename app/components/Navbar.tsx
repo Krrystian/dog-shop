@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Hamburger } from "./navbar/Hamburger";
 import { motion } from "framer-motion";
 import { FiShoppingCart } from "react-icons/fi";
@@ -14,6 +14,11 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const navbarStore = useNavbar();
   const router = useRouter();
+
+  const [items, setItems] = useState<any>(0);
+  useMemo(() => {
+    setItems(JSON.parse(localStorage.getItem("products") || "[]").length);
+  }, [localStorage.getItem("products") || "[]".length]);
 
   return (
     <main>
@@ -32,6 +37,9 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             <UserMenu currentUser={currentUser} />
             <a className="hover:opacity-75 truncate" href="">
               Shopping List
+              <span className="bg-red-600 rounded-full px-2 mx-2 text-sm">
+                {items}
+              </span>
             </a>
             <a className="hover:opacity-75" href="">
               About us
@@ -63,8 +71,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           </div>
           <div className="hidden md:flex gap-3">
             <UserMenu currentUser={currentUser} />
-            <a className="hover:opacity-75" href="">
+            <a className="hover:opacity-75 flex gap-3 relative" href="">
               <FiShoppingCart size={25} />
+              {items !== 0 && (
+                <p className="absolute top-3 left-4 text-sm rounded-full px-2 bg-red-600">
+                  {items}
+                </p>
+              )}
             </a>
           </div>
           <div className="md:hidden pt-[4px]">

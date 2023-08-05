@@ -10,7 +10,7 @@ const Menu = () => {
   const useCat = useCategory();
   const filter = useFilter();
   const Heading = () => {
-    return <div className="w-full text-center text-3xl">Categories</div>;
+    return <div className="w-full text-center text-3xl p-3">Categories</div>;
   };
   type Cat = {
     name: string;
@@ -19,7 +19,7 @@ const Menu = () => {
   const Category: React.FC<Cat> = ({ name, onClick }) => {
     return (
       <div
-        className="bg-black/10 hover:bg-inherit text-center text-lg w-full cursor-pointer"
+        className="bg-black/10 hover:bg-inherit text-center text-lg w-full p-2 md:p-1 cursor-pointer"
         onClick={onClick}
       >
         {name}
@@ -37,27 +37,29 @@ const Menu = () => {
   }, []);
 
   return (
-    <div className="flex flex-row">
-      <div className="min-h-[656px] w-[26%] bg-[#D4D4D8] flex flex-col gap-3 px-[40px] justify-center cursor-default">
+    <div className="flex flex-col md:flex-row">
+      <div className="md:min-h-[656px] md:w-[26%] bg-[#D4D4D8] flex flex-col  px-[20px] md:px-[40px] justify-center cursor-default">
         <Heading />
-        <Category
-          name="All products"
-          onClick={() => {
-            filter.setText("All products");
-          }}
-        />
-        {useCat.categories.length > 0 &&
-          useCat.categories.slice(2).map((category, index) => {
-            return (
-              <Category
-                name={category.name}
-                key={index}
-                onClick={() => {
-                  filter.setText(category.name);
-                }}
-              />
-            );
-          })}
+        <div className="grid grid-cols-2 gap-1 md:grid-cols-1">
+          <Category
+            name="All products"
+            onClick={() => {
+              filter.setText("All products");
+            }}
+          />
+          {useCat.categories.length > 0 &&
+            useCat.categories.slice(2).map((category, index) => {
+              return (
+                <Category
+                  name={category.name}
+                  key={index}
+                  onClick={() => {
+                    filter.setText(category.name);
+                  }}
+                />
+              );
+            })}
+        </div>
       </div>
       <ProductList name={filter.text} />
     </div>
