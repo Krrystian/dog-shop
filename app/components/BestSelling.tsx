@@ -5,6 +5,7 @@ import Product from "./segments/Product";
 import { motion } from "framer-motion";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const BestSelling = () => {
   type Product = {
@@ -14,6 +15,7 @@ const BestSelling = () => {
     price: string;
   };
   const [products, setProducts] = useState<Product[]>();
+  const router = useRouter();
   useEffect(() => {
     axios
       .get(`/api/product/getProduct/0/${"Best selling"}`)
@@ -37,8 +39,8 @@ const BestSelling = () => {
             image={product.image}
             label={product.name}
             price={product.price}
-            action={function (): void {
-              throw new Error("Function not implemented.");
+            action={() => {
+              router.push(`/product/${product.id}`);
             }}
           />
         ))}

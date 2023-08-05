@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import Product from "../segments/Product";
 import useFilter from "@/app/hooks/useFilter";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 interface ProductListProps {
   name: string;
 }
@@ -23,6 +24,7 @@ const ProductList: React.FC<ProductListProps> = ({ name }) => {
   const [text, setText] = useState<string>("");
   const [products, setProducts] = useState<Product[]>();
   const filter = useFilter();
+  const router = useRouter();
 
   type Product = {
     name: string;
@@ -111,8 +113,8 @@ const ProductList: React.FC<ProductListProps> = ({ name }) => {
             image={product.image}
             label={product.name}
             price={product.price}
-            action={function (): void {
-              throw new Error("Function not implemented.");
+            action={() => {
+              router.push(`/product/${product.id}`);
             }}
           />
         ))}
