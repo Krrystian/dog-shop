@@ -1,4 +1,5 @@
 "use client";
+import useShoppingCart from "@/app/hooks/useShoppingCart";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
@@ -11,6 +12,7 @@ const page = ({ params }: { params: IParams }) => {
   const [product, setProduct] = useState<any>();
   const [quantity, setQuantity] = useState<number>(1);
   const router = useRouter();
+  const useCart = useShoppingCart();
   useEffect(() => {
     axios
       .get(`/api/product/${productId}`)
@@ -31,16 +33,25 @@ const page = ({ params }: { params: IParams }) => {
   const addProduct = useCallback(() => {
     const getList = JSON.parse(localStorage.getItem("products") || "[]");
     if (getList.some((item: any) => item.id === productId)) {
+      console.log(getList);
       return toast.error("Product already in cart!");
     }
-    const updatedProducts = [...getList, { id: productId, quantity: quantity }];
+    const updatedProducts = [
+      ...getList,
+      {
+        id: productId,
+        quantity: quantity,
+        name: product.name,
+        image: product.image,
+      },
+    ];
     localStorage.setItem("products", JSON.stringify(updatedProducts));
     router.refresh();
     return toast.success("Product added!");
-  }, []);
+  }, [productId, product, quantity]);
 
   return (
-    <div className="h-screen bg-zinc-200 grid grid-cols-2">
+    <div className="h-screen bg-zinc-200 grid grid-cols-2 overflow-y-hidden">
       {product && (
         <>
           <div className="flex flex-col justify-center p-11 gap-3">
@@ -49,7 +60,7 @@ const page = ({ params }: { params: IParams }) => {
             </h2>
             <img
               src={product.image}
-              className=" object-cover w-full h-[70%] rounded-xl"
+              className=" object-cover w-full max-h-[650px] rounded-xl"
             ></img>
           </div>
           <div className="flex flex-col justify-center p-11 gap-16">
@@ -62,7 +73,9 @@ const page = ({ params }: { params: IParams }) => {
               >
                 -
               </button>
-              <p>{quantity}</p>
+              <p>
+                {quantity} ({(product.price * quantity).toFixed(2)}$)
+              </p>
               <button
                 className="border-cyan-800 border rounded-full px-2"
                 onClick={handleClickUP}

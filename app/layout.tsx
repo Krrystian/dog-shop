@@ -7,6 +7,7 @@ import { Poppins } from "next/font/google";
 import ToasterProvider from "./providers/ToasterProvider";
 import getCurrentUser from "./actions/getCurrentUser";
 import Navbar from "./components/Navbar";
+import ShoppingModal from "./components/modals/ShoppingModal";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
           <ToasterProvider />
           <AccountModal currentUser={currentUser} />
           <RegisterModal />
+          <ShoppingModal />
           <LoginModal />
         </ClientOnly>
         {children}

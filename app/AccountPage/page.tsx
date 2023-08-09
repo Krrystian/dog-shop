@@ -14,21 +14,24 @@ import NewProductModal from "../components/modals/NewProductModal";
 import EditProductModal from "../components/modals/EditProductModal";
 import AccountSettings from "./components/AccountSettings";
 import AccountOrders from "./components/AccountOrders";
+import ClientOnly from "../components/ClientOnly";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
 function AdminDashboard() {
   return (
-    <AdminPage>
-      <AdminSettings />
-      <AdminProducts />
-      <AdminCategories />
-      <NewCategoryModal />
-      <NewProductModal />
-      <ConfirmationModal />
-      <EditCategoryModal />
-      <EditProductModal />
-    </AdminPage>
+    <ClientOnly>
+      <AdminPage>
+        <AdminSettings />
+        <AdminProducts />
+        <AdminCategories />
+        <NewCategoryModal />
+        <NewProductModal />
+        <ConfirmationModal />
+        <EditCategoryModal />
+        <EditProductModal />
+      </AdminPage>
+    </ClientOnly>
   );
 }
 
