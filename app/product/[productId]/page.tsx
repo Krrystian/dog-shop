@@ -42,6 +42,7 @@ const page = ({ params }: { params: IParams }) => {
         quantity: quantity,
         name: product.name,
         image: product.image,
+        price: product.price,
       },
     ];
     localStorage.setItem("products", JSON.stringify(updatedProducts));
