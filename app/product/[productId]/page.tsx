@@ -33,7 +33,6 @@ const page = ({ params }: { params: IParams }) => {
   const addProduct = useCallback(() => {
     const getList = JSON.parse(localStorage.getItem("products") || "[]");
     if (getList.some((item: any) => item.id === productId)) {
-      console.log(getList);
       return toast.error("Product already in cart!");
     }
     const updatedProducts = [
