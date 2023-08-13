@@ -7,6 +7,9 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useShoppingCart from "@/app/hooks/useShoppingCart";
 import { MdOutlineDelete } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { SafeUser } from "@/app/types";
+import Input from "../inputs/Input";
+import Heading from "../Heading";
 
 interface PositionProps {
   name: string;
@@ -15,6 +18,10 @@ interface PositionProps {
   price: number;
   setQuantity: (value: number) => void;
   onDelete?: () => void;
+}
+
+interface ShoppingModalProps {
+  currentUser: SafeUser | null;
 }
 
 enum STEPS {
@@ -73,7 +80,7 @@ const Position: React.FC<PositionProps> = ({
   );
 };
 
-const ShoppingModal = () => {
+const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
   const useShopping = useShoppingCart();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
@@ -93,7 +100,6 @@ const ShoppingModal = () => {
     handleSubmit,
     formState: { errors },
     watch,
-    reset,
     setValue,
   } = useForm<FieldValues>({
     defaultValues: {
@@ -107,9 +113,21 @@ const ShoppingModal = () => {
       products: [],
     },
   });
+  const products = watch("products");
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    if (step === STEPS.PRODUCT) return next();
+    if (step === STEPS.PRODUCT && currentUser) return next();
+    else if (step === STEPS.PRODUCT)
+      return toast.error("Login to complete order");
+    else if (data.products.length === 0)
+      return toast.error("You need at least 1 product");
+    console.log(
+      data.products.map((product: any) => product.price * product.quantity)
+    );
+    const result: number = data.products.reduce(
+      (acc: 0, current: any) => acc + Number(current.price)
+    ); //do naprawy
+    console.log(result);
     setIsLoading(true);
     axios
       .post(``, data)
@@ -146,6 +164,13 @@ const ShoppingModal = () => {
     }
   }, [useShopping.isOpen, productList, step]);
 
+  const handleClose = useCallback(() => {
+    localStorage.setItem("products", JSON.stringify(productList) || "[]");
+    useShopping.onClose();
+    setValue("products", productList);
+    setStep(0);
+  }, [useShopping.isOpen, productList, step]);
+
   const labelAction = useMemo(() => {
     if (step === STEPS.PRODUCT) return "Continue";
     else return "Order";
@@ -156,29 +181,86 @@ const ShoppingModal = () => {
   }, [step]);
   const next = () => {
     setStep(step + 1);
+    setValue("products", productList);
   };
   const back = () => {
     setStep(step - 1);
   };
-  const body = (
-    <div className="flex flex-col gap-4">
-      {productList?.map((item, index) => {
-        return (
-          <Position
-            key={index}
-            name={item.name}
-            image={item.image}
-            quantity={item.quantity}
-            price={item.price}
-            setQuantity={(newQuantity) =>
-              handleUpdateQuantity(index, newQuantity)
-            }
-            onDelete={() => handleDelete(index)}
+
+  const body = useMemo(() => {
+    if (step === STEPS.PRODUCT)
+      return (
+        <div className="flex flex-col gap-4">
+          {productList?.map((item, index) => {
+            return (
+              <Position
+                key={index}
+                name={item.name}
+                image={item.image}
+                quantity={item.quantity}
+                price={item.price}
+                setQuantity={(newQuantity) =>
+                  handleUpdateQuantity(index, newQuantity)
+                }
+                onDelete={() => handleDelete(index)}
+              />
+            );
+          })}
+        </div>
+      );
+    else
+      return (
+        <div className="flex flex-col gap-4">
+          <Heading
+            center
+            title="Delivery Information"
+            subtitle="One more step and your doggo will be the happiest best friend"
           />
-        );
-      })}
-    </div>
-  );
+          <Input
+            id="delivery.country"
+            label="Country"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <Input
+            id="delivery.city"
+            label="City"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <Input
+            id="delivery.street"
+            label="Street"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <Input
+            id="delivery.houseNumber"
+            label="House number"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <Input
+            id="delivery.zipCode"
+            label="Zip code"
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
+          />
+          <h1 className="text-right">Total value: {} </h1>
+        </div>
+      );
+  }, [step, productList]);
+
   return (
     <Modal
       title="Shopping Cart"
@@ -186,7 +268,7 @@ const ShoppingModal = () => {
       secondaryActionLabel={seclabelAction}
       disabled={isLoading}
       isOpen={useShopping.isOpen}
-      onClose={handleExit}
+      onClose={handleClose}
       onSubmit={handleSubmit(onSubmit)}
       secondaryAction={handleExit}
       body={body}
