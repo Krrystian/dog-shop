@@ -1,6 +1,5 @@
 "use client";
 import { signOut } from "next-auth/react";
-
 import Modal from "./Modal";
 import Heading from "../Heading";
 import { useRouter } from "next/navigation";

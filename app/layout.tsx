@@ -30,7 +30,7 @@ export default async function RootLayout({
           <ToasterProvider />
           <AccountModal currentUser={currentUser} />
           <RegisterModal />
-          <ShoppingModal />
+          <ShoppingModal currentUser={currentUser} />
           <LoginModal />
         </ClientOnly>
         {children}
