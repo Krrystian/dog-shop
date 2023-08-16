@@ -83,17 +83,30 @@ const Position: React.FC<PositionProps> = ({
 const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
   const useShopping = useShoppingCart();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const router = useRouter();
   type Item = {
+    id: string;
     name: string;
     image: string;
     quantity: number;
     price: number;
   };
-  const [productList, setProductList] = useState<Item[]>();
+  const [productList, setProductList] = useState<Item[]>([]);
   const [step, setStep] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
   useEffect(() => {
     setProductList(JSON.parse(localStorage.getItem("products") || "[]"));
+    if (productList.length > 0) {
+      setTotalPrice(
+        productList
+          .map((product: any) => product.price * product.quantity)
+          .reduce((acc: number, current: number) => acc + current)
+      );
+      setValue("userId", currentUser?.id);
+    }
+
+    axios.get(`/api/order/${currentUser?.id}`).then((response) => {
+      console.log(response.data);
+    });
   }, [useShopping.isOpen]);
   const {
     register,
@@ -103,6 +116,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
     setValue,
   } = useForm<FieldValues>({
     defaultValues: {
+      userId: "",
       delivery: {
         country: "",
         city: "",
@@ -113,26 +127,17 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
       products: [],
     },
   });
-  const products = watch("products");
-
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     if (step === STEPS.PRODUCT && currentUser) return next();
     else if (step === STEPS.PRODUCT)
       return toast.error("Login to complete order");
     else if (data.products.length === 0)
       return toast.error("You need at least 1 product");
-    console.log(
-      data.products.map((product: any) => product.price * product.quantity)
-    );
-    const result: number = data.products.reduce(
-      (acc: 0, current: any) => acc + Number(current.price)
-    ); //do naprawy
-    console.log(result);
     setIsLoading(true);
     axios
-      .post(``, data)
+      .post("/api/order", data)
       .then(() => {
-        toast.success("NOTHING");
+        toast.success("Order successfully added.");
       })
       .catch((error) => {
         toast.error(String(error));
@@ -181,7 +186,13 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
   }, [step]);
   const next = () => {
     setStep(step + 1);
-    setValue("products", productList);
+    if (productList.length > 0) {
+      setTotalPrice(
+        productList
+          .map((product: any) => product.price * product.quantity)
+          .reduce((acc: number, current: number) => acc + current)
+      );
+    }
   };
   const back = () => {
     setStep(step - 1);
@@ -256,7 +267,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
             errors={errors}
             required
           />
-          <h1 className="text-right">Total value: {} </h1>
+          <h1 className="text-right">Total value: {totalPrice} $</h1>
         </div>
       );
   }, [step, productList]);

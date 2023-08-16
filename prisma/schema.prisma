@@ -73,8 +73,8 @@ model Category {
 
 model OrderDetail {
   id               String       @id @default(auto()) @map("_id") @db.ObjectId
-  quantity         String
-  transactionPrice String
+  quantity         Int
+  transactionPrice Float
   Product          Product?     @relation(fields: [productId], references: [id])
   productId        String?      @db.ObjectId
   OrderHeader      OrderHeader? @relation(fields: [orderHeaderId], references: [id])
