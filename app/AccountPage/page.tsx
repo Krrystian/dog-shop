@@ -35,11 +35,11 @@ function AdminDashboard() {
   );
 }
 
-function AccountDashboard(userName: String | null) {
+function AccountDashboard(userName: String | null, userId: String | null) {
   return (
     <AccountPage name={userName}>
       <AccountSettings />
-      <AccountOrders />
+      <AccountOrders userId={userId} />
     </AccountPage>
   );
 }
@@ -51,7 +51,7 @@ export default async function page() {
       className={`${poppins.className} h-screen w-screen overflow-x-hidden md:overflow-hidden`}
     >
       {currentUser?.role === "user"
-        ? AccountDashboard(currentUser.name)
+        ? AccountDashboard(currentUser.name, currentUser.id)
         : AdminDashboard()}
     </div>
   );

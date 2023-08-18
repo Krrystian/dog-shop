@@ -71,7 +71,7 @@ const Position: React.FC<PositionProps> = ({
         </h2>
       </div>
       <div className="self-center w-full justify-end flex">
-        <h2 className="px-2">Price {price * quantity} $</h2>
+        <h2 className="px-2">Price {Number(price * quantity).toFixed(2)} $</h2>
         <button onClick={onDelete}>
           <MdOutlineDelete color="red" size="24" />
         </button>
@@ -101,18 +101,15 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
           .map((product: any) => product.price * product.quantity)
           .reduce((acc: number, current: number) => acc + current)
       );
+      setValue("products", productList);
       setValue("userId", currentUser?.id);
     }
-
-    axios.get(`/api/order/${currentUser?.id}`).then((response) => {
-      console.log(response.data);
-    });
+    //CZASAMI DAJE NAM NP 2 QUANITITY GDY JEST 5 zmienić to!
   }, [useShopping.isOpen]);
   const {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
     setValue,
   } = useForm<FieldValues>({
     defaultValues: {
@@ -144,6 +141,8 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
       })
       .finally(() => {
         setIsLoading(false);
+        useShopping.onClose();
+        localStorage.clear();
       });
   };
   const handleUpdateQuantity = (index: number, newQuantity: number) => {
@@ -163,6 +162,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
   const handleExit = useCallback(() => {
     if (step === STEPS.PRODUCT) {
       localStorage.setItem("products", JSON.stringify(productList) || "[]");
+      setValue("products", productList);
       useShopping.onClose();
     } else {
       back();
@@ -186,12 +186,15 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
   }, [step]);
   const next = () => {
     setStep(step + 1);
+    setValue("products", productList);
     if (productList.length > 0) {
       setTotalPrice(
         productList
           .map((product: any) => product.price * product.quantity)
           .reduce((acc: number, current: number) => acc + current)
       );
+    } else {
+      setTotalPrice(0);
     }
   };
   const back = () => {
