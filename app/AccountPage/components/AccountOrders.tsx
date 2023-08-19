@@ -1,14 +1,17 @@
 "use client";
 import useAccountMenu from "@/app/hooks/useAccountMenu";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import OrderPosition from "./OrderPosition";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import useOrderInfo from "@/app/hooks/useOrderInfo";
 
 interface AccountOrdersProps {
-  userId: string;
+  userId?: String | null;
 }
 const AccountOrders: React.FC<AccountOrdersProps> = ({ userId }) => {
   const useAccount = useAccountMenu();
+  const useOrder = useOrderInfo();
   const [current, setCurrent] = useState<number>(0);
   const [orderList, setOrderList] = useState<any>();
   const [max, setMax] = useState<number>(1);
@@ -17,11 +20,27 @@ const AccountOrders: React.FC<AccountOrdersProps> = ({ userId }) => {
       .get(`/api/order/${current}/${userId}`)
       .then((response) => {
         setOrderList(response.data);
+        response.data.length === 6 && setMax(current + 2);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [current]);
+
+  const next = () => {
+    if (current + 1 < max) setCurrent(current + 1);
+  };
+
+  const previous = () => {
+    if (current !== 0) {
+      setMax(max - 1);
+      setCurrent(current - 1);
+    }
+  };
+  const handleClick = (order: any) => {
+    useOrder.setOrderDetails(order);
+    useOrder.onOpen();
+  };
   return (
     <div
       className={
@@ -32,16 +51,27 @@ const AccountOrders: React.FC<AccountOrdersProps> = ({ userId }) => {
     >
       <h2 className="text-3xl text-center">My orders</h2>
       <div className="flex flex-col-reverse gap-2 ">
-        {/* BAZA DANYCH SORTOWANIE */}
         {orderList &&
-          orderList.map((order: any) => (
-            <OrderPosition
-              id={order.id}
-              orderTime={order.createdAt}
-              products={order.orderDetail}
-              key={order.id}
-            />
-          ))}
+          orderList
+            .slice(0, 5)
+            .map((order: any) => (
+              <OrderPosition
+                id={order.id}
+                orderTime={order.createdAt}
+                products={order.orderDetail}
+                key={order.id}
+                onClick={() => handleClick(order)}
+              />
+            ))}
+      </div>
+      <div
+        className={
+          max <= 1 && current === 0 ? "hidden" : "flex justify-center p-3 gap-3"
+        }
+      >
+        <AiOutlineArrowLeft size={28} onClick={() => previous()} />
+        <p>{current + 1}</p>
+        <AiOutlineArrowRight size={28} onClick={() => next()} />
       </div>
     </div>
   );

@@ -6,7 +6,6 @@ import { toast } from "react-hot-toast";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useShoppingCart from "@/app/hooks/useShoppingCart";
 import { MdOutlineDelete } from "react-icons/md";
-import { useRouter } from "next/navigation";
 import { SafeUser } from "@/app/types";
 import Input from "../inputs/Input";
 import Heading from "../Heading";
@@ -104,7 +103,6 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
       setValue("products", productList);
       setValue("userId", currentUser?.id);
     }
-    //CZASAMI DAJE NAM NP 2 QUANITITY GDY JEST 5 zmienić to!
   }, [useShopping.isOpen]);
   const {
     register,

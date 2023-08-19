@@ -15,6 +15,7 @@ import EditProductModal from "../components/modals/EditProductModal";
 import AccountSettings from "./components/AccountSettings";
 import AccountOrders from "./components/AccountOrders";
 import ClientOnly from "../components/ClientOnly";
+import OrderInfoModal from "../components/modals/OrderInfoModal";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
@@ -37,10 +38,13 @@ function AdminDashboard() {
 
 function AccountDashboard(userName: String | null, userId: String | null) {
   return (
-    <AccountPage name={userName}>
-      <AccountSettings />
-      <AccountOrders userId={userId} />
-    </AccountPage>
+    <ClientOnly>
+      <AccountPage name={userName}>
+        <AccountSettings />
+        <AccountOrders userId={userId} />
+        <OrderInfoModal />
+      </AccountPage>
+    </ClientOnly>
   );
 }
 

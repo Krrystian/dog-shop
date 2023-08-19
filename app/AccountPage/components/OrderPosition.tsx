@@ -1,13 +1,13 @@
 "use client";
-import React, { Key, useEffect, useState } from "react";
+import React, { Key, useCallback, useEffect, useState } from "react";
 import { MdOutlineReadMore } from "react-icons/md";
 interface ItemProps {
   id?: Key;
   orderTime?: string;
   products?: any[];
-  detailed?: () => void;
+  onClick: () => void;
 }
-const Item: React.FC<ItemProps> = ({ id, products, orderTime, detailed }) => {
+const Item: React.FC<ItemProps> = ({ id, products, orderTime, onClick }) => {
   const [total, setTotal] = useState<number>(0);
   let patternDate = /^[^A-Z]{10}/is;
   let patternTime = /T[^A-Z]{10}/is;
@@ -18,6 +18,7 @@ const Item: React.FC<ItemProps> = ({ id, products, orderTime, detailed }) => {
     });
     setTotal(count);
   }, []);
+  const handleClick = useCallback(() => {}, []);
   return (
     <div key={id} className="border-2 border-black/60 p-1 flex justify-between">
       <div>
@@ -29,7 +30,7 @@ const Item: React.FC<ItemProps> = ({ id, products, orderTime, detailed }) => {
           {orderTime?.match(patternTime)?.toString().slice(1, 9)}
         </h4>
       </div>
-      <div className="flex items-center cursor-pointer">
+      <div className="flex items-center cursor-pointer" onClick={onClick}>
         <MdOutlineReadMore size={40} color="green" />
       </div>
     </div>
