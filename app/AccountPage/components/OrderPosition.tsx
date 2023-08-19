@@ -5,9 +5,14 @@ interface ItemProps {
   id?: Key;
   orderTime?: string;
   products?: any[];
-  onClick: () => void;
+  onClick: (value: any) => void;
 }
-const Item: React.FC<ItemProps> = ({ id, products, orderTime, onClick }) => {
+const OrderPosition: React.FC<ItemProps> = ({
+  id,
+  products,
+  orderTime,
+  onClick,
+}) => {
   const [total, setTotal] = useState<number>(0);
   let patternDate = /^[^A-Z]{10}/is;
   let patternTime = /T[^A-Z]{10}/is;
@@ -18,7 +23,9 @@ const Item: React.FC<ItemProps> = ({ id, products, orderTime, onClick }) => {
     });
     setTotal(count);
   }, []);
-  const handleClick = useCallback(() => {}, []);
+  const handleClick = useCallback(() => {
+    onClick(total.toFixed(2));
+  }, [total]);
   return (
     <div key={id} className="border-2 border-black/60 p-1 flex justify-between">
       <div>
@@ -30,11 +37,11 @@ const Item: React.FC<ItemProps> = ({ id, products, orderTime, onClick }) => {
           {orderTime?.match(patternTime)?.toString().slice(1, 9)}
         </h4>
       </div>
-      <div className="flex items-center cursor-pointer" onClick={onClick}>
+      <div className="flex items-center cursor-pointer" onClick={handleClick}>
         <MdOutlineReadMore size={40} color="green" />
       </div>
     </div>
   );
 };
 
-export default Item;
+export default OrderPosition;

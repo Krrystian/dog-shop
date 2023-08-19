@@ -37,8 +37,9 @@ const AccountOrders: React.FC<AccountOrdersProps> = ({ userId }) => {
       setCurrent(current - 1);
     }
   };
-  const handleClick = (order: any) => {
+  const handleClick = (order: any, totalPrice: any) => {
     useOrder.setOrderDetails(order);
+    useOrder.setTotalPrice(totalPrice);
     useOrder.onOpen();
   };
   return (
@@ -60,7 +61,7 @@ const AccountOrders: React.FC<AccountOrdersProps> = ({ userId }) => {
                 orderTime={order.createdAt}
                 products={order.orderDetail}
                 key={order.id}
-                onClick={() => handleClick(order)}
+                onClick={(totalPrice) => handleClick(order, totalPrice)}
               />
             ))}
       </div>
