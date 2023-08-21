@@ -16,6 +16,7 @@ import AccountSettings from "./components/AccountSettings";
 import AccountOrders from "./components/AccountOrders";
 import ClientOnly from "../components/ClientOnly";
 import OrderInfoModal from "../components/modals/OrderInfoModal";
+import AdminOrders from "./components/AdminOrders";
 
 const poppins = Poppins({ subsets: ["latin"], weight: "300" });
 
@@ -31,6 +32,8 @@ function AdminDashboard() {
         <ConfirmationModal />
         <EditCategoryModal />
         <EditProductModal />
+        <OrderInfoModal />
+        <AdminOrders />
       </AdminPage>
     </ClientOnly>
   );

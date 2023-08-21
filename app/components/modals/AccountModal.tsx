@@ -34,7 +34,7 @@ const LoginModal: React.FC<AccountModalProps> = ({ currentUser }) => {
   return (
     <Modal
       title="Account"
-      actionLabel="SignOut"
+      actionLabel="Log out"
       secondaryActionLabel="Account"
       secondaryAction={handleSecondaryAction}
       onSubmit={handleSubmit}

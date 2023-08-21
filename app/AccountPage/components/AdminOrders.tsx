@@ -5,19 +5,17 @@ import React, { useEffect, useState } from "react";
 import OrderPosition from "./OrderPosition";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import useOrderInfo from "@/app/hooks/useOrderInfo";
+import useAdminMenu from "@/app/hooks/useAdminMenu";
 
-interface AccountOrdersProps {
-  userId?: String | null;
-}
-const AccountOrders: React.FC<AccountOrdersProps> = ({ userId }) => {
-  const useAccount = useAccountMenu();
+const AccountOrders = () => {
+  const useAdmin = useAdminMenu();
   const useOrder = useOrderInfo();
   const [current, setCurrent] = useState<number>(0);
   const [orderList, setOrderList] = useState<any>();
   const [max, setMax] = useState<number>(1);
   useEffect(() => {
     axios
-      .get(`/api/order/${current}/${userId}`)
+      .get(`/api/order/${current}`)
       .then((response) => {
         setOrderList(response.data);
         response.data.length === 6 && setMax(current + 2);
@@ -45,12 +43,12 @@ const AccountOrders: React.FC<AccountOrdersProps> = ({ userId }) => {
   return (
     <div
       className={
-        useAccount.selected === 1
+        useAdmin.selected === 3
           ? "bg-white md:w-[70%] h-screen p-3"
           : "hidden z-[-1]"
       }
     >
-      <h2 className="text-3xl text-center border-b-2 mb-4">My orders</h2>
+      <h2 className="text-3xl text-center border-b-2 mb-4">Orders</h2>
       <div className="flex flex-col-reverse gap-2 ">
         {orderList &&
           orderList

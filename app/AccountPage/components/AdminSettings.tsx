@@ -20,6 +20,12 @@ const AdminSettings = () => {
         >
           Categories
         </li>
+        <li
+          className="bg-black/10 hover:bg-inherit cursor-pointer"
+          onClick={() => useAdmin.change(3)}
+        >
+          Orders
+        </li>
       </ul>
     </div>
   );

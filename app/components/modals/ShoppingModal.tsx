@@ -138,6 +138,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
         toast.error(String(error));
       })
       .finally(() => {
+        setStep(0);
         setIsLoading(false);
         useShopping.onClose();
         localStorage.clear();
@@ -268,7 +269,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
             errors={errors}
             required
           />
-          <h1 className="text-right">Total value: {totalPrice} $</h1>
+          <h1 className="text-right">Total value: {totalPrice.toFixed(2)} $</h1>
         </div>
       );
   }, [step, productList]);

@@ -14,12 +14,6 @@ const AccountSettings = () => {
         >
           My orders
         </li>
-        <li
-          className="bg-black/10 hover:bg-inherit cursor-pointer"
-          onClick={() => useAccount.change(2)}
-        >
-          Change password
-        </li>
       </ul>
     </div>
   );

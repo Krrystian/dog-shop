@@ -13,7 +13,7 @@ interface ItemProps {
 
 const Item: React.FC<ItemProps> = ({ onClick, name, quantity, price }) => {
   return (
-    <div className="border-black border grid grid-cols-3 cursor-default my-3">
+    <div className="border-black border grid grid-cols-3 cursor-default">
       <p className=" col-span-3 flex justify-center text-xl">{name}</p>
       <p className="flex justify-center">Quantity: {quantity}</p>
       <p className="flex justify-center">Price: {price.toFixed(2)} $</p>
