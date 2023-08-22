@@ -1,4 +1,3 @@
-// eslint-disable-next-line react-hooks/rules-of-hooks
 "use client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
