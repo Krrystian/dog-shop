@@ -25,7 +25,7 @@ const AccountOrders: React.FC<AccountOrdersProps> = ({ userId }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [current]);
+  }, [current, userId]);
 
   const next = () => {
     if (current + 1 < max) setCurrent(current + 1);

@@ -69,6 +69,9 @@ const LoginModal = () => {
         errors={errors}
         required
       />
+      <p>For learning purposes</p>
+      <p>GUEST email: 123@test.com password: 123</p>
+      <p>ADMIN email: admin@adm.com password: admin</p>
     </div>
   );
 
