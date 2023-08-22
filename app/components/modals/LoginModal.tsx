@@ -17,7 +17,6 @@ const LoginModal = () => {
   const loginModal = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
   const {
     register,
     handleSubmit,
@@ -85,12 +84,12 @@ const LoginModal = () => {
       />
       <div className="text-black text-center mt-4 font-light">
         <div className="flex flex-row items-center gap-2 justify-center">
-          <div>Don't have an account?</div>
+          <p>Don't have account?</p>
           <div
             className="text-black/70 cursor-pointer hover:underline"
             onClick={onToggle}
           >
-            Register
+            <p>Register</p>
           </div>
         </div>
       </div>

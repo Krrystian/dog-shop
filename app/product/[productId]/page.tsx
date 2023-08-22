@@ -1,5 +1,5 @@
+// eslint-disable-next-line react-hooks/rules-of-hooks
 "use client";
-import useShoppingCart from "@/app/hooks/useShoppingCart";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
@@ -12,7 +12,6 @@ const page = ({ params }: { params: IParams }) => {
   const [product, setProduct] = useState<any>();
   const [quantity, setQuantity] = useState<number>(1);
   const router = useRouter();
-  const useCart = useShoppingCart();
   useEffect(() => {
     axios
       .get(`/api/product/${productId}`)
