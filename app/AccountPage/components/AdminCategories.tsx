@@ -27,7 +27,7 @@ const AdminCategories = () => {
       .catch(() => {
         toast.error("Something went wrong");
       });
-  }, [useCat.isOpen, useConfirm.isOpen, useEdit.isOpenCat, current]);
+  }, [useCat.isOpen, useConfirm.isOpen, useEdit.isOpenCat, current, useCat]);
 
   const next = () => {
     if (current + 1 < max) setCurrent(current + 1);
