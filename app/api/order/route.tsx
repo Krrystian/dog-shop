@@ -34,5 +34,5 @@ export async function POST(request: Request) {
       deliveryPlace: true,
     },
   });
-  return NextResponse.json({});
+  return NextResponse.json(orderHeader);
 }
