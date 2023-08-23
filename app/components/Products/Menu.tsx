@@ -36,7 +36,7 @@ const Menu = () => {
         console.log(response.data);
       })
       .catch((e) => toast.error("Something went wrong: " + e));
-  }, [useCat.categories]);
+  }, []);
 
   return (
     <div className="flex flex-col md:flex-row">
