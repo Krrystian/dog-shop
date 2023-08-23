@@ -9,15 +9,12 @@ import useFilter from "@/app/hooks/useFilter";
 const Menu = () => {
   const useCat = useCategory();
   const filter = useFilter();
-  const [cat, setCat] = useState<any>();
   useEffect(() => {
     axios
       .get(`/api/category/getCategory`)
       .then((response) => {
-        setCat(response.data);
         useCat.setCategories(response.data);
-        console.log(response.data);
-        console.log(cat);
+        console.log(response.status, response.data);
       })
       .catch((e) => toast.error("Something went wrong: " + e));
   }, []);

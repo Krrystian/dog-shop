@@ -3,5 +3,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const category = await prisma.category.findMany();
-  return NextResponse.json(category);
+  return NextResponse.json(category).headers.set(
+    "Cache-Control",
+    "no-store, must-revalidate"
+  );
 }
