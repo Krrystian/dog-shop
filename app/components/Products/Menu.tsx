@@ -29,7 +29,7 @@ const Menu = () => {
 
   useEffect(() => {
     axios
-      .get(`/api/category/getCategory&timestamp=${new Date().getTime()}`, {
+      .get(`/api/category/getCategory`, {
         headers: {
           "Cache-Control": "no-cache",
           Pragma: "no-cache",
