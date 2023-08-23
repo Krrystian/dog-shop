@@ -9,6 +9,19 @@ import useFilter from "@/app/hooks/useFilter";
 const Menu = () => {
   const useCat = useCategory();
   const filter = useFilter();
+  const [cat, setCat] = useState<any>();
+  useEffect(() => {
+    axios
+      .get(`/api/category/getCategory`)
+      .then((response) => {
+        setCat(response.data);
+        useCat.setCategories(response.data);
+        console.log(response.data);
+        console.log(cat);
+      })
+      .catch((e) => toast.error("Something went wrong: " + e));
+  }, []);
+
   const Heading = () => {
     return <div className="w-full text-center text-3xl p-3">Categories</div>;
   };
@@ -26,22 +39,6 @@ const Menu = () => {
       </div>
     );
   };
-
-  useEffect(() => {
-    axios
-      .get(`/api/category/getCategory`, {
-        headers: {
-          "Cache-Control": "no-cache",
-          Pragma: "no-cache",
-          Expires: "0",
-        },
-      })
-      .then((response) => {
-        useCat.setCategories(response.data);
-        console.log(response.data);
-      })
-      .catch((e) => toast.error("Something went wrong: " + e));
-  }, []);
 
   return (
     <div className="flex flex-col md:flex-row">
