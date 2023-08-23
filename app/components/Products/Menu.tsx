@@ -11,7 +11,7 @@ const Menu = () => {
   const filter = useFilter();
   useEffect(() => {
     axios
-      .get(`/api/category/getCategory`)
+      .get(`/api/category/getCategory?timestamp=${Date.now()}`)
       .then((response) => {
         useCat.setCategories(response.data);
         console.log(response.status, response.data);
