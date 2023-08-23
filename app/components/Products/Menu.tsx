@@ -32,6 +32,7 @@ const Menu = () => {
       .get(`/api/category/getCategory`)
       .then((response) => {
         useCat.setCategories(response.data);
+        console.log(response.data);
       })
       .catch((e) => toast.error("Something went wrong: " + e));
   }, []);
