@@ -103,7 +103,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
       setValue("products", productList);
       setValue("userId", currentUser?.id);
     }
-  }, [useShopping.isOpen]);
+  }, [useShopping.isOpen, currentUser?.id]);
   const {
     register,
     handleSubmit,
@@ -162,6 +162,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
     if (step === STEPS.PRODUCT) {
       localStorage.setItem("products", JSON.stringify(productList) || "[]");
       setValue("products", productList);
+      setValue("userId", currentUser?.id);
       useShopping.onClose();
     } else {
       back();
@@ -172,6 +173,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
     localStorage.setItem("products", JSON.stringify(productList) || "[]");
     useShopping.onClose();
     setValue("products", productList);
+    setValue("userId", currentUser?.id);
     setStep(0);
   }, [useShopping.isOpen, productList, step]);
 
@@ -186,6 +188,7 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
   const next = () => {
     setStep(step + 1);
     setValue("products", productList);
+    setValue("userId", currentUser?.id);
     if (productList.length > 0) {
       setTotalPrice(
         productList
