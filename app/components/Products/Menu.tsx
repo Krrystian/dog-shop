@@ -28,14 +28,15 @@ const Menu = () => {
   };
 
   useEffect(() => {
+    const unique = Date.now();
     axios
-      .get(`/api/category/getCategory`)
+      .get(`/api/category/getCategory?unique=${unique}`)
       .then((response) => {
         useCat.setCategories(response.data);
         console.log(response.data);
       })
       .catch((e) => toast.error("Something went wrong: " + e));
-  }, []);
+  }, [useCat]);
 
   return (
     <div className="flex flex-col md:flex-row">
