@@ -28,9 +28,14 @@ const Menu = () => {
   };
 
   useEffect(() => {
-    const unique = Date.now();
     axios
-      .get(`/api/category/getCategory?unique=${unique}`)
+      .get(`/api/category/getCategory&timestamp=${new Date().getTime()}`, {
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      })
       .then((response) => {
         useCat.setCategories(response.data);
         console.log(response.data);
