@@ -11,10 +11,10 @@ const Menu = () => {
   const filter = useFilter();
   useEffect(() => {
     axios
-      .get(`/api/category/getCategory?timestamp=${Date.now()}`)
+      .get(`/api/category/getCategory/0`)
       .then((response) => {
         useCat.setCategories(response.data);
-        console.log(response.status, response.data);
+        console.log(response.data);
       })
       .catch((e) => toast.error("Something went wrong: " + e));
   }, []);
@@ -49,7 +49,7 @@ const Menu = () => {
             }}
           />
           {useCat.categories.length > 0 &&
-            useCat.categories.map((category, index) => {
+            useCat.categories.slice(2).map((category, index) => {
               return (
                 <Category
                   name={category.name}
