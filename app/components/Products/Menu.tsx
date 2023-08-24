@@ -49,7 +49,7 @@ const Menu = () => {
             }}
           />
           {useCat.categories.length > 0 &&
-            useCat.categories.slice(2).map((category, index) => {
+            useCat.categories.map((category, index) => {
               return (
                 <Category
                   name={category.name}
