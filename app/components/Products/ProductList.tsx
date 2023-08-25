@@ -88,7 +88,7 @@ const ProductList: React.FC<ProductListProps> = ({ name }) => {
       <div className="flex self-center md:self-end gap-1 pr-2">
         <h3 className="cursor-default">Search:</h3>
         <input
-          className="bg-black/20 rounded-bl-xl rounded-br-xl px-4"
+          className="bg-black/20 rounded-bl-xl rounded-br-xl md:max-w-sm px-2"
           onChange={handleChange}
           onKeyDown={handleKey}
         ></input>

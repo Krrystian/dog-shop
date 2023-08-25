@@ -22,19 +22,31 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div
             className="md:hidden flex"
             onClick={() => {
-              accountModal.onOpen();
-              useNav.clicked();
+              accountModal.onOpen;
+              useNav.clicked;
             }}
           >
             Your Account
           </div>
         </button>
       ) : (
-        <button className="hover:opacity-75" onClick={loginModal.onOpen}>
+        <button
+          className="hover:opacity-75"
+          onClick={() => {
+            loginModal.onOpen;
+            useNav.clicked;
+          }}
+        >
           <div className="hidden md:block">
             <MdAccountCircle size={25} />
           </div>
-          <div className="md:hidden flex" onClick={loginModal.onOpen}>
+          <div
+            className="md:hidden flex"
+            onClick={() => {
+              loginModal.onOpen;
+              useNav.clicked;
+            }}
+          >
             Account
           </div>
         </button>

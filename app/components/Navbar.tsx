@@ -24,7 +24,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
 
   const handleShopping = useCallback(() => {
     shoppingCart.onOpen();
-  }, [shoppingCart]);
+    navbarStore.clicked();
+  }, [shoppingCart, navbarStore]);
 
   return (
     <main>
@@ -41,11 +42,13 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             </a>
 
             <UserMenu currentUser={currentUser} />
-            <a className="hover:opacity-75 truncate" href="">
+            <a className="hover:opacity-75 truncate" onClick={handleShopping}>
               Shopping List
-              <span className="bg-red-600 rounded-full px-2 mx-2 text-sm">
-                {items}
-              </span>
+              {items > 0 && (
+                <span className="bg-red-600 rounded-full px-2 mx-2 text-sm">
+                  {items}
+                </span>
+              )}
             </a>
             <a className="hover:opacity-75" href="">
               About us

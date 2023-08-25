@@ -49,21 +49,23 @@ const page = ({ params }: { params: IParams }) => {
   }, [productId, product, quantity]);
 
   return (
-    <div className="h-screen bg-zinc-200 grid grid-cols-2 overflow-y-hidden">
+    <div className="min-h-screen bg-zinc-200 grid grid-cols-1 md:grid-cols-2 overflow-y-hidden">
       {product && (
         <>
-          <div className="flex flex-col justify-center p-11 gap-3">
+          <div className="flex flex-col justify-center gap-3">
             <h2 className="text-4xl text-center items-center">
               {product.name}
             </h2>
             <img
               src={product.image}
-              className=" object-cover w-full max-h-[650px] rounded-xl"
+              className=" object-cover w-full max-h-[650px] rounded-xl px-6"
             ></img>
           </div>
-          <div className="flex flex-col justify-center p-11 gap-16">
-            <p className="text-2xl">{product.ProductDetail[0].description}</p>
-            <div className="flex text-2xl gap-3 justify-center">
+          <div className="flex flex-col px-2 gap-3 md:justify-center items-center">
+            <p className="text-xl md:text-2xl">
+              {product.ProductDetail[0].description}
+            </p>
+            <div className="flex text-lg md:text-2xl gap-3 justify-center">
               <p>Quantity:</p>
               <button
                 className="border-cyan-800 border rounded-full px-2"
