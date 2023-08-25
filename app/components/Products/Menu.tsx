@@ -14,7 +14,6 @@ const Menu = () => {
       .get(`/api/category/getCategory/0`)
       .then((response) => {
         useCat.setCategories(response.data);
-        console.log(response.data);
       })
       .catch((e) => toast.error("Something went wrong: " + e));
   }, []);
@@ -38,7 +37,7 @@ const Menu = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row">
+    <div className="flex flex-col md:flex-row" id="Products">
       <div className="md:min-h-[656px] md:w-[26%] bg-[#D4D4D8] flex flex-col  px-[20px] md:px-[40px] justify-center cursor-default">
         <Heading />
         <div className="grid grid-cols-2 gap-1 md:grid-cols-1">

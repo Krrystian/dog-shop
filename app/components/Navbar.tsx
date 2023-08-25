@@ -8,6 +8,7 @@ import useNavbar from "../hooks/useNavbar";
 import { SafeUser } from "../types";
 import { useRouter } from "next/navigation";
 import useShoppingCart from "../hooks/useShoppingCart";
+import { toast } from "react-hot-toast";
 
 interface NavbarProps {
   currentUser: SafeUser | null;
@@ -37,7 +38,17 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           transition={{ duration: 0.2 }}
         >
           <div className="flex flex-col justify-center text-white text-3xl gap-16">
-            <a className="hover:opacity-75" href="">
+            <a
+              className="hover:opacity-75"
+              onClick={() =>
+                toast.error(
+                  "There's nothing to know about us other than visiting my GitHub",
+                  {
+                    icon: "🐶",
+                  }
+                )
+              }
+            >
               Products
             </a>
 
@@ -50,10 +61,27 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                 </span>
               )}
             </a>
-            <a className="hover:opacity-75" href="">
+            <a
+              className="hover:opacity-75"
+              onClick={() =>
+                toast.error(
+                  "There's nothing to know about us other than visiting my GitHub",
+                  {
+                    icon: "🐶",
+                  }
+                )
+              }
+            >
               About us
             </a>
-            <a className="hover:opacity-75" href="">
+            <a
+              className="hover:opacity-75"
+              onClick={() =>
+                toast.error("Who needs support on a project website", {
+                  icon: "🐶",
+                })
+              }
+            >
               Support
             </a>
           </div>
@@ -68,13 +96,37 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             <span className=" text-cyan-950">Dog</span>Shop
           </div>
           <div className="hidden md:flex gap-4">
-            <a className="hover:opacity-75" href="">
+            <a
+              className="hover:opacity-75"
+              onClick={() =>
+                toast.error("Sorry, no site here", {
+                  icon: "🐶",
+                })
+              }
+            >
               Products
             </a>
-            <a className="hover:opacity-75" href="">
+            <a
+              className="hover:opacity-75"
+              onClick={() =>
+                toast.error(
+                  "There's nothing to know about us other than visiting my GitHub",
+                  {
+                    icon: "🐶",
+                  }
+                )
+              }
+            >
               About us
             </a>
-            <a className="hover:opacity-75" href="">
+            <a
+              className="hover:opacity-75"
+              onClick={() =>
+                toast.error("Who needs support on a project website", {
+                  icon: "🐶",
+                })
+              }
+            >
               Support
             </a>
           </div>

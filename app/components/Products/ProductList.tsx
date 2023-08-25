@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
 import Product from "../segments/Product";
 import useFilter from "@/app/hooks/useFilter";
@@ -49,6 +49,7 @@ const ProductList: React.FC<ProductListProps> = ({ name }) => {
               setProducts(response.data);
               if (response.data.length >= 9) setMax(current + 2);
               else setMax(current + 1);
+              setCurrent(0);
             });
         }
       } catch (error) {
@@ -67,7 +68,6 @@ const ProductList: React.FC<ProductListProps> = ({ name }) => {
       else {
         filter.setText(text);
       }
-      setCurrent(0);
     }
   };
   const next = () => {
