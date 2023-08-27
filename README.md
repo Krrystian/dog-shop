@@ -1,34 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [NextJS 13](https://nextjs.org/) full-stack project made for learning purposes.
 
-## Getting Started
+## Description
 
-First, run the development server:
+Dog shop! Shop for dogs! Shop for people with dogs! Whatever you want to call it - my attempt to use part of my university knowledge to make a website that works! It is a website that imitate online shop. For testing purposes I made admin and user accounts for your use, but feel free to make your own accounts to test it.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+#### Why I made it
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+I made that project to challenge myself. After making some React frontend pages - next step is to become a single-army fullstack dev. I find it very satisfying. Solving problems and working with a database - different experience. There is a bunch of things I learned:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- HTTP status (well I thought I knew them before but working with them... 500... 400... 304...)
+- API / REST API (how to call API, [AXIOS](https://axios-http.com/) client with a Next based APIs)
+- Database callbacks (making MongoDB schema with [PRISMA](https://www.prisma.io/) also creating, finding objects, modifying them, handling errors)
+- State management (so easy to get lost in states... great solution [🐻ZUSTAND🐻](https://zustand-demo.pmnd.rs/))
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Project - what you should not expect
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+First of all it was my first try of making full-stack web. Other than account safety you should **not expect any other safety**.. It would not be hard for someone who knows HTTP requests to get access to admin dashboard, but I made it easier :P. It is also **not a high advanced design** with lot of futures, animation website - it was never a priority but I hope simplicity is never a crime. **Not 100% error proof.** (like any other website) I tried my best but sometimes error appears, best solution -> try to refresh page or DM me.

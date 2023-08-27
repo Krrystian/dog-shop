@@ -134,14 +134,16 @@ const ShoppingModal: React.FC<ShoppingModalProps> = ({ currentUser }) => {
       .then(() => {
         toast.success("Order successfully added.");
       })
-      .catch((error) => {
-        toast.error(String(error));
-      })
-      .finally(() => {
+      .then(() => {
         setStep(0);
-        setIsLoading(false);
         useShopping.onClose();
         localStorage.clear();
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
   const handleUpdateQuantity = (index: number, newQuantity: number) => {

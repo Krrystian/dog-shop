@@ -97,7 +97,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
           </div>
           <div className="hidden md:flex gap-4">
             <a
-              className="hover:opacity-75"
+              className="hover:opacity-75 cursor-pointer"
               onClick={() =>
                 toast.error("Sorry, no site here", {
                   icon: "🐶",
@@ -107,7 +107,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
               Products
             </a>
             <a
-              className="hover:opacity-75"
+              className="hover:opacity-75 cursor-pointer"
               onClick={() =>
                 toast.error(
                   "There's nothing to know about us other than visiting my GitHub",
@@ -120,7 +120,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
               About us
             </a>
             <a
-              className="hover:opacity-75"
+              className="hover:opacity-75 cursor-pointer"
               onClick={() =>
                 toast.error("Who needs support on a project website", {
                   icon: "🐶",
@@ -134,7 +134,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
             <UserMenu currentUser={currentUser} />
             <a
               className="hover:opacity-75 flex gap-3 relative"
-              onClick={handleShopping}
+              onClick={shoppingCart.onOpen}
             >
               <FiShoppingCart size={25} />
               {items !== 0 && (
